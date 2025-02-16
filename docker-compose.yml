@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: ebd
+    image: bitnami/postgresql:latest
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=ebd
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/bitnami/postgresql
+
+  api:
+    container_name: api-ebd
+    build: .
+    ports:
+      - "3333:3333"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://docker:docker@postgres:5432/ebd?schema=public
