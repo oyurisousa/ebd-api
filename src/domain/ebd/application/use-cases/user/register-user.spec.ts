@@ -5,16 +5,25 @@ import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repos
 import { UserRole } from '@/domain/ebd/enterprise/user';
 import { UserWithSameEmailAlreadyExistsError } from './_errors/user-with-same-email-already-exists-error';
 import { UserWithSameUsernameAlreadyExistsError } from './_errors/user-with-same-username-already-exists-error';
+import { InMemoryMembersRepository } from 'test/repositories/in-memory-members-repository';
+import { makeMember } from 'test/factories/make-member';
+import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
 let inMemoryUsersRepository: InMemoryUsersRepository;
+let inMemoryMembersRepository: InMemoryMembersRepository;
 let fakeHasher: FakerHasher;
 let sut: RegisterUserUseCase;
 
 describe('Register User', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository();
+    inMemoryMembersRepository = new InMemoryMembersRepository();
     fakeHasher = new FakerHasher();
-    sut = new RegisterUserUseCase(inMemoryUsersRepository, fakeHasher);
+    sut = new RegisterUserUseCase(
+      inMemoryUsersRepository,
+      inMemoryMembersRepository,
+      fakeHasher,
+    );
   });
   it('shoult be able to register a new User', async () => {
     const result = await sut.execute({
@@ -28,6 +37,28 @@ describe('Register User', () => {
       expect(inMemoryUsersRepository.items).toHaveLength(1);
       expect(inMemoryUsersRepository.items[0].email).toEqual(
         result.value?.user.email,
+      );
+    }
+  });
+
+  it('shoult be able to register a new User and associate him with a Member', async () => {
+    const member = makeMember();
+    await inMemoryMembersRepository.create(member);
+
+    const result = await sut.execute({
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+      role: UserRole.TEACHER,
+      username: faker.person.firstName(),
+      memberId: member.id.toString(),
+    });
+    expect(result.isRight()).toBeTruthy();
+    if (result.isRight()) {
+      expect(inMemoryUsersRepository.items).toHaveLength(1);
+      expect(inMemoryUsersRepository.items[0]).toEqual(
+        expect.objectContaining({
+          memberId: expect.any(UniqueEntityId),
+        }),
       );
     }
   });

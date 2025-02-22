@@ -6,11 +6,15 @@ import { UsersRepository } from '../../repositories/users-repository';
 import { HashGenerator } from '../../cryptography/hash-generator';
 import { UserWithSameEmailAlreadyExistsError } from './_errors/user-with-same-email-already-exists-error';
 import { UserWithSameUsernameAlreadyExistsError } from './_errors/user-with-same-username-already-exists-error';
+import type { MembersRepository } from '../../repositories/members-repository';
+import { MemberNotFoundError } from '../member/_errors/member-not-found-error';
+import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
 interface createUserUseCaseRequest {
   email: string;
   password: string;
   username: string;
+  memberId?: string;
   role?: UserRole;
 }
 
@@ -25,6 +29,7 @@ type createUserUseCaseResponse = Either<
 export class RegisterUserUseCase {
   constructor(
     private userRepository: UsersRepository,
+    private membersRepository: MembersRepository,
     private hashGenerator: HashGenerator,
   ) {}
 
@@ -32,8 +37,17 @@ export class RegisterUserUseCase {
     username,
     email,
     password,
-    role = UserRole.COMMON,
+    role,
+    memberId,
   }: createUserUseCaseRequest): Promise<createUserUseCaseResponse> {
+    if (memberId) {
+      const member = await this.membersRepository.findById(memberId);
+
+      if (!member) {
+        return left(new MemberNotFoundError(memberId));
+      }
+    }
+
     const userWithSameEmail = await this.userRepository.findByEmail(email);
     if (userWithSameEmail) {
       return left(new UserWithSameEmailAlreadyExistsError(email));
@@ -52,6 +66,7 @@ export class RegisterUserUseCase {
       email,
       passwordHash,
       role,
+      memberId: new UniqueEntityId(memberId),
     });
 
     await this.userRepository.create(user);
