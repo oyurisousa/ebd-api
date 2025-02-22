@@ -5,15 +5,15 @@ import { Entity } from '@/core/entities/entity';
 export enum UserRole {
   COMMON = 'COMMON',
   TEACHER = 'TEACHER',
-  PASTOR = 'PASTOR',
+  SHEPHERD = 'SHEPHERD',
   PEDAGOGICAL_DEPARTMENT = 'PEDAGOGICAL_DEPARTMENT',
   SUPERINTENDENT = 'SUPERINTENDENT',
   SECRETARY = 'SECRETARY',
 }
 
 export interface UserProps {
-  memberId: UniqueEntityId;
-  user: string;
+  memberId?: UniqueEntityId;
+  username: string;
   email: string;
   passwordHash: string;
   role: UserRole;
@@ -26,12 +26,12 @@ export class User extends Entity<UserProps> {
     return this.props.memberId;
   }
 
-  get user() {
-    return this.props.user;
+  get username() {
+    return this.props.username;
   }
 
-  set user(value) {
-    this.props.user = value;
+  set username(value) {
+    this.props.username = value;
     this.touch();
   }
 
