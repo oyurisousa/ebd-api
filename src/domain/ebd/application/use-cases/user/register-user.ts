@@ -6,7 +6,7 @@ import { UsersRepository } from '../../repositories/users-repository';
 import { HashGenerator } from '../../cryptography/hash-generator';
 import { UserWithSameEmailAlreadyExistsError } from './_errors/user-with-same-email-already-exists-error';
 import { UserWithSameUsernameAlreadyExistsError } from './_errors/user-with-same-username-already-exists-error';
-import type { MembersRepository } from '../../repositories/members-repository';
+import { MembersRepository } from '../../repositories/members-repository';
 import { MemberNotFoundError } from '../member/_errors/member-not-found-error';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 
@@ -66,7 +66,7 @@ export class RegisterUserUseCase {
       email,
       passwordHash,
       role,
-      memberId: new UniqueEntityId(memberId),
+      memberId: memberId ? new UniqueEntityId(memberId) : null,
     });
 
     await this.userRepository.create(user);

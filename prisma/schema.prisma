@@ -6,3 +6,45 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum UserRole {
+  COMMON
+  TEACHER
+  SHEPHERD
+  PEDAGOGICAL_DEPARTMENT
+  SUPERINTENDENT
+  SECRETARY
+}
+
+enum Sex {
+  MALE
+  FEMALE
+}
+
+model User {
+  id           String    @id @default(uuid())
+  username     String    @unique
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         UserRole
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+
+  member   Member? @relation(fields: [memberId], references: [id])
+  memberId String? @unique
+
+  @@map("users")
+}
+
+model Member {
+  id        String    @id @default(uuid())
+  name      String
+  birthDate DateTime  @map("bith_date")
+  sex       Sex
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  User User?
+
+  @@map("members")
+}
