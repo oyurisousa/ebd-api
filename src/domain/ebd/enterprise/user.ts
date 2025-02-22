@@ -12,7 +12,7 @@ export enum UserRole {
 }
 
 export interface UserProps {
-  memberId?: UniqueEntityId;
+  memberId?: UniqueEntityId | null;
   username: string;
   email: string;
   passwordHash: string;
@@ -72,6 +72,10 @@ export class User extends Entity<UserProps> {
 
   get updatedAt() {
     return this.props.updatedAt;
+  }
+
+  public isMember(): boolean {
+    return !!this.props.memberId;
   }
 
   private touch() {

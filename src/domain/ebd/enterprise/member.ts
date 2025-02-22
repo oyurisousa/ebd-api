@@ -2,16 +2,15 @@ import { Optional } from '@/core/types/optional';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AggregateRoot } from '@/core/entities/aggregate-root';
 
-export enum sex {
+export enum Sex {
   MALE = 'M',
   FEMALE = 'F',
 }
 
 export interface MemberProps {
   name: string;
-  cpf: string;
   birthDate: Date;
-  sex: sex;
+  sex: Sex;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -24,19 +23,6 @@ export class Member extends AggregateRoot<MemberProps> {
   set name(value: string) {
     this.props.name = value;
     this.touch();
-  }
-
-  get cpf() {
-    return this.props.cpf;
-  }
-
-  set cpf(value: string) {
-    this.props.cpf = value;
-    this.touch();
-  }
-
-  public getFormattedCpf(): string {
-    return this.cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
   }
 
   get birthDate() {
@@ -52,7 +38,7 @@ export class Member extends AggregateRoot<MemberProps> {
     return this.props.sex;
   }
 
-  set sex(value: sex) {
+  set sex(value: Sex) {
     this.props.sex = value;
     this.touch();
   }
