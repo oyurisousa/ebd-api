@@ -5,10 +5,20 @@ import { RegisterUserUseCase } from '@/domain/ebd/application/use-cases/user/reg
 import { CreateAccountUserController } from './controllers/user/register-user.controller';
 import { CreateMemberController } from './controllers/member/create-member.controller';
 import { CreateMemberUseCase } from '@/domain/ebd/application/use-cases/member/create-member';
+import { AuthenticateUserController } from './controllers/auth/authenticate-user.controller';
+import { AuthenticateUserUseCase } from '@/domain/ebd/application/use-cases/auth/authenticate-user';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
-  controllers: [CreateAccountUserController, CreateMemberController],
-  providers: [RegisterUserUseCase, CreateMemberUseCase],
+  controllers: [
+    AuthenticateUserController,
+    CreateAccountUserController,
+    CreateMemberController,
+  ],
+  providers: [
+    AuthenticateUserUseCase,
+    RegisterUserUseCase,
+    CreateMemberUseCase,
+  ],
 })
 export class HttpModule {}
