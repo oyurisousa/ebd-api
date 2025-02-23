@@ -13,7 +13,7 @@ import { MemberNotFoundError } from '@/domain/ebd/application/use-cases/member/_
 
 @ApiTags('auth')
 @ApiBearerAuth()
-@Controller('/accounts')
+@Controller('/auth/register')
 @Public()
 export class CreateAccountUserController {
   constructor(private registerUser: RegisterUserUseCase) {}

@@ -30,7 +30,7 @@ describe('Register User (E2E)', () => {
     await app.init();
   });
 
-  test('[POST] /accounts', async () => {
+  test('[POST] /auth/register', async () => {
     const user = await userFactory.makePrismaUser();
 
     const accessToken = jwt.sign({
@@ -39,7 +39,7 @@ describe('Register User (E2E)', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .post('/accounts')
+      .post('/auth/register')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         username: 'john all',

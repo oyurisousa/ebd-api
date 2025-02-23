@@ -3,8 +3,8 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { AggregateRoot } from '@/core/entities/aggregate-root';
 
 export enum Sex {
-  MALE = 'M',
-  FEMALE = 'F',
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
 }
 
 export interface MemberProps {

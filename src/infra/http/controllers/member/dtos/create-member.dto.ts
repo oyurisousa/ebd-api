@@ -1,6 +1,7 @@
-import { IsDateString, IsEnum, IsString } from 'class-validator';
+import { IsDate, IsEnum, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Sex } from '@/domain/ebd/enterprise/member';
+import { Type } from 'class-transformer';
 
 export class CreateMemberDto {
   @ApiProperty({ example: 'João Silva', description: 'Nome do membro' })
@@ -11,7 +12,8 @@ export class CreateMemberDto {
     example: '1990-05-15',
     description: 'Data de nascimento do membro (YYYY-MM-DD)',
   })
-  @IsDateString()
+  @IsDate()
+  @Type(() => Date)
   birthDate: Date;
 
   @ApiProperty({ example: 'MALE', description: 'Sexo do membro', enum: Sex })
