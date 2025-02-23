@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { PrismaClient, Sex } from '@prisma/client';
+import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -242,11 +243,24 @@ const members = [
   },
 ];
 
+async function createUser() {
+  await prisma.user.create({
+    data: {
+      email: 'test@gmail.com',
+      role: 'SHEPHERD',
+      username: 'test',
+      passwordHash: await hash('12345678', 8),
+    },
+  });
+}
+
 async function main() {
   await prisma.member.deleteMany();
+  await prisma.user.deleteMany();
   console.log('Tablea members is reseted.');
 
   await prisma.member.createMany({ data: members });
+  await createUser();
   console.log('Seed successfully!');
 }
 
