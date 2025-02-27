@@ -6,6 +6,7 @@ import { MembersRepository } from '../../repositories/members-repository';
 
 interface FetchMembersUseCaseRequest {
   page: number;
+  perPage?: number;
   name?: string;
   birthDate?: Date;
   sex?: Sex;
@@ -25,12 +26,13 @@ export class FetchMembersUseCase {
 
   async execute({
     page,
+    perPage,
     name,
     sex,
     birthDate,
   }: FetchMembersUseCaseRequest): Promise<FetchMembersUseCaseResponse> {
     const { members, meta } = await this.membersRepository.findMany(
-      { page },
+      { page, perPage },
       { name, sex, birthDate },
     );
 

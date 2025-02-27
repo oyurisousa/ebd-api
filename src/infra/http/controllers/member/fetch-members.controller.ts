@@ -21,10 +21,11 @@ export class FetchMembersController {
   @Get()
   @UseGuards(JwtAuthGuard)
   async handle(@Query() queryParams: FetchMembersDto) {
-    const { page, name, birthDate, sex } = queryParams;
+    const { page, name, birthDate, sex, perPage } = queryParams;
 
     const result = await this.fetchMembers.execute({
       page,
+      perPage,
       name,
       birthDate,
       sex,

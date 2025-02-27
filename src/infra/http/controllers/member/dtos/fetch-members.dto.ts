@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Max,
   Min,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
@@ -21,6 +22,19 @@ export class FetchMembersDto {
   @IsNumber()
   @Min(1)
   page: number = 1;
+
+  @ApiProperty({
+    description: 'Número de itens por página',
+    example: 10,
+    required: false,
+    maximum: 50,
+  })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  @Min(1)
+  @Max(50)
+  perPage: number = 10;
 
   @ApiProperty({
     example: 'João Silva',
