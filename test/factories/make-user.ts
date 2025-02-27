@@ -13,7 +13,7 @@ export function makeUser(
   const user = User.create(
     {
       email: faker.internet.email(),
-      username: Username.create(faker.internet.username()),
+      username: Username.create(faker.internet.username().substring(0, 20)),
       memberId: undefined,
       passwordHash: faker.internet.password(),
       role: faker.helpers.enumValue(UserRole),
