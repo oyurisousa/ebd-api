@@ -1,5 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { User, UserRole, type UserProps } from '@/domain/ebd/enterprise/user';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 import { PrismaUserMapper } from '@/infra/database/prisma/mappers/prisma-user-mapper';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { faker } from '@faker-js/faker';
@@ -12,7 +13,7 @@ export function makeUser(
   const user = User.create(
     {
       email: faker.internet.email(),
-      username: faker.person.firstName(),
+      username: Username.create(faker.internet.username()),
       memberId: undefined,
       passwordHash: faker.internet.password(),
       role: faker.helpers.enumValue(UserRole),

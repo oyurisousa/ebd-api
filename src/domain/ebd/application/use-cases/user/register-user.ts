@@ -9,6 +9,7 @@ import { UserWithSameUsernameAlreadyExistsError } from './_errors/user-with-same
 import { MembersRepository } from '../../repositories/members-repository';
 import { MemberNotFoundError } from '../member/_errors/member-not-found-error';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 
 interface createUserUseCaseRequest {
   email: string;
@@ -62,7 +63,7 @@ export class RegisterUserUseCase {
     const passwordHash = await this.hashGenerator.hash(password);
 
     const user = User.create({
-      username,
+      username: Username.create(username),
       email,
       passwordHash,
       role,

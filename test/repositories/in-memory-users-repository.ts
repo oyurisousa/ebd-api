@@ -22,7 +22,7 @@ export class InMemoryUsersRepository implements UsersRepository {
 
   async findByUsername(username: string): Promise<User | null> {
     const user = this.items.find(
-      (user) => user.username.toLowerCase() === username.toLowerCase(),
+      (user) => user.username.value.toLowerCase() === username.toLowerCase(),
     );
 
     if (!user) {

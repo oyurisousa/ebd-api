@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { WrongCredentialsError } from './_errors/wrong-credentials-error';
 
 interface AuthenticateUserUseCaseRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -27,10 +27,10 @@ export class AuthenticateUserUseCase {
   ) {}
 
   async execute({
-    email,
+    username,
     password,
   }: AuthenticateUserUseCaseRequest): Promise<AuthenticateUserUseCaseResponse> {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByUsername(username);
     if (!user) {
       return left(new WrongCredentialsError());
     }

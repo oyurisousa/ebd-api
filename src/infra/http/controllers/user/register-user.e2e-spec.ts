@@ -42,7 +42,7 @@ describe('Register User (E2E)', () => {
       .post('/auth/register')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        username: 'john all',
+        username: 'john_all01',
         email: 'john@gmail.com',
         password: '123456',
         role: UserRole.SHEPHERD,

@@ -1,21 +1,24 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsString, Matches, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthenticateUserDTO {
   @ApiProperty({
-    example: 'user@example.com',
-    description: 'The email of the user used for authentication.',
+    example: 'john_doe',
+    description: 'O nome de usuário do usuário utilizado para autenticação.',
   })
-  @IsEmail({}, { message: 'Email must be a valid email address' })
-  email: string;
+  @IsString({ message: 'O nome de usuário deve ser uma string' })
+  @Matches(/^[a-z][a-z0-9._]{2,29}$/, {
+    message:
+      'O nome de usuário deve ter entre 3 e 30 caracteres, começar com uma letra e conter apenas letras, números, pontos ou underscores.',
+  })
+  username: string;
 
   @ApiProperty({
-    example: 'password123',
-    description:
-      'The password of the user. Must be at least 6 characters long.',
+    example: 'senha123',
+    description: 'A senha do usuário. Deve ter pelo menos 8 caracteres.',
   })
-  @IsString()
-  @MinLength(8, { message: 'Password must be at least 8 characters long' })
+  @IsString({ message: 'A senha deve ser uma string' })
+  @MinLength(8, { message: 'A senha deve ter pelo menos 8 caracteres' })
   password: string;
 }
 

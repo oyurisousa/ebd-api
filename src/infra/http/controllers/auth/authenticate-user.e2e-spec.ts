@@ -1,3 +1,4 @@
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { INestApplication } from '@nestjs/common';
@@ -24,6 +25,7 @@ describe('Authenticate (E2E)', () => {
 
   test('[POST] /auth/login', async () => {
     await userFactory.makePrismaUser({
+      username: Username.create('john_01'),
       email: 'john@gmail.com',
       passwordHash: await hash('123456', 8),
     });
@@ -31,7 +33,7 @@ describe('Authenticate (E2E)', () => {
     const response = await request(app.getHttpServer())
       .post('/auth/login')
       .send({
-        email: 'john@gmail.com',
+        username: 'john_01',
         password: '123456',
       });
 

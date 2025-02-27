@@ -1,6 +1,7 @@
 import { Optional } from '@/core/types/optional';
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { Entity } from '@/core/entities/entity';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 
 export enum UserRole {
   COMMON = 'COMMON',
@@ -13,7 +14,7 @@ export enum UserRole {
 
 export interface UserProps {
   memberId?: UniqueEntityId | null;
-  username: string;
+  username: Username;
   email: string;
   passwordHash: string;
   role: UserRole;

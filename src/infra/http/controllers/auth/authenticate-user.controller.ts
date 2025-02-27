@@ -41,10 +41,10 @@ export class AuthenticateUserController {
     description: 'A bad request error occurred.',
   })
   async handle(@Body() body: AuthenticateUserDTO) {
-    const { email, password } = body;
+    const { username, password } = body;
 
     const result = await this.authenticateUser.execute({
-      email,
+      username,
       password,
     });
 

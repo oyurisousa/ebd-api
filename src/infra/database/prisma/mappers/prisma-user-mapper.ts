@@ -1,5 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { User, UserRole } from '@/domain/ebd/enterprise/user';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 import { $Enums, User as PrismaUser, type Prisma } from '@prisma/client';
 
 export class PrismaUserMapper {
@@ -8,7 +9,7 @@ export class PrismaUserMapper {
       {
         email: raw.email,
         passwordHash: raw.passwordHash,
-        username: raw.username,
+        username: Username.create(raw.username),
         memberId: raw.memberId ? new UniqueEntityId(raw.memberId) : null,
         role: UserRole[raw.role],
         createdAt: raw.createdAt,
@@ -22,7 +23,7 @@ export class PrismaUserMapper {
     return {
       email: user.email,
       passwordHash: user.passwordHash,
-      username: user.username,
+      username: user.username.value,
       memberId: user.memberId?.toString(),
       role: $Enums.UserRole[user.role],
       createdAt: user.createdAt,
