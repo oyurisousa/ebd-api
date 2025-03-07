@@ -1,4 +1,5 @@
 import { UserRole } from '@/domain/ebd/enterprise/user';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
@@ -33,6 +34,7 @@ describe('Create Member (E2E)', () => {
   test('[POST] /member', async () => {
     const user = await userFactory.makePrismaUser({
       role: UserRole.SECRETARY,
+      username: Username.create('john1000'),
     });
 
     const accessToken = jwt.sign({

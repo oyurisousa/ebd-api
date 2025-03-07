@@ -9,6 +9,8 @@ import { AuthenticateUserController } from './controllers/auth/authenticate-user
 import { AuthenticateUserUseCase } from '@/domain/ebd/application/use-cases/auth/authenticate-user';
 import { FetchMembersController } from './controllers/member/fetch-members.controller';
 import { FetchMembersUseCase } from '@/domain/ebd/application/use-cases/member/fetch-members';
+import { GetUserDetailsController } from './controllers/user/get-user-details.controller';
+import { GetUserDetailsUseCase } from '@/domain/ebd/application/use-cases/user/get-user-details';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -16,12 +18,14 @@ import { FetchMembersUseCase } from '@/domain/ebd/application/use-cases/member/f
     AuthenticateUserController,
     CreateAccountUserController,
     CreateMemberController,
+    GetUserDetailsController,
     FetchMembersController,
   ],
   providers: [
     AuthenticateUserUseCase,
     RegisterUserUseCase,
     CreateMemberUseCase,
+    GetUserDetailsUseCase,
     FetchMembersUseCase,
   ],
 })

@@ -4,7 +4,7 @@
 
 - ✅ Deve ser possível se autenticar;
 - [ ] Deve ser possível recuperar a senha;
-- [ ] Deve ser possível obter o perfil de um usuário logado;
+- ✅ Deve ser possível obter os dados de um usuário;
 - ✅  Deve ser possível cadastrar um membro;
 - ✅  Deve ser possível cadastrar um usuário
 - ✅  Deve ser possível associar um membro já cadastrado a um usuário

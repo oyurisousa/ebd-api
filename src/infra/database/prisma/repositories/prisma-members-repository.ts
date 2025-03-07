@@ -3,7 +3,7 @@ import { Member, type Sex } from '@/domain/ebd/enterprise/member';
 import { Injectable } from '@nestjs/common';
 import { PrismaMemberMapper } from '../mappers/prisma-member-mapper';
 import { PrismaService } from '../prisma.service';
-import type { Meta } from '@/core/repositories/meta';
+import { Meta } from '@/core/repositories/meta';
 import {
   PER_PAGE_DEFAULT,
   type PaginationParams,

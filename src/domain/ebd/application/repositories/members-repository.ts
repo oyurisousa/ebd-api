@@ -1,6 +1,6 @@
-import type { Meta } from '@/core/repositories/meta';
+import { Meta } from '@/core/repositories/meta';
 import { Member, type Sex } from '../../enterprise/member';
-import type { PaginationParams } from '@/core/repositories/pagination-params';
+import { PaginationParams } from '@/core/repositories/pagination-params';
 
 export abstract class MembersRepository {
   abstract create(member: Member): Promise<void>;
