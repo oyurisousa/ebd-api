@@ -60,7 +60,7 @@ export class PrismaMembersRepository implements MembersRepository {
         skip: (page - 1) * perPage,
         take: perPage,
         orderBy: {
-          createdAt: 'desc',
+          name: 'asc',
         },
       }),
       this.prisma.member.count({

@@ -11,7 +11,7 @@ export class Username {
 
     if (!Username.isValid(normalized)) {
       throw new Error(
-        'Username inválido. É necessário ter 3-30 caracteres, começar com uma letra, e conter apenas letras, números, pontos finais(.), e underlines.',
+        'Username inválido. É necessário ter 3-20 caracteres, começar com uma letra, e conter apenas letras, números, pontos finais(.), e underlines.',
       );
     }
 
