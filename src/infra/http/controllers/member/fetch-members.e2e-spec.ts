@@ -1,4 +1,5 @@
 import { UserRole } from '@/domain/ebd/enterprise/user';
+import { Username } from '@/domain/ebd/enterprise/value-objects/username';
 import { AppModule } from '@/infra/app.module';
 import { DatabaseModule } from '@/infra/database/database.module';
 import { INestApplication } from '@nestjs/common';
@@ -32,6 +33,7 @@ describe('Fetch Members (E2E)', () => {
   test('[GET] /member', async () => {
     const user = await userFactory.makePrismaUser({
       role: UserRole.SECRETARY,
+      username: Username.create('member01_9'),
     });
 
     const accessToken = jwt.sign({ sub: user.id.toString(), role: user.role });

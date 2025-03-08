@@ -5,6 +5,7 @@ import { PrismaUserMapper } from '@/infra/database/prisma/mappers/prisma-user-ma
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
+import { randomInt } from 'crypto';
 
 export function makeUser(
   override: Partial<UserProps> = {},
@@ -13,7 +14,9 @@ export function makeUser(
   const user = User.create(
     {
       email: faker.internet.email(),
-      username: Username.create(faker.internet.username().substring(0, 20)),
+      username: Username.create(
+        `${faker.lorem.word({ length: 2 })}_${randomInt(0, 100).toString()}_${faker.lorem.word({ length: 4 })}`,
+      ),
       memberId: undefined,
       passwordHash: faker.internet.password(),
       role: faker.helpers.enumValue(UserRole),

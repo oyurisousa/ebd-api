@@ -11,6 +11,8 @@ import { FetchMembersController } from './controllers/member/fetch-members.contr
 import { FetchMembersUseCase } from '@/domain/ebd/application/use-cases/member/fetch-members';
 import { GetUserDetailsController } from './controllers/user/get-user-details.controller';
 import { GetUserDetailsUseCase } from '@/domain/ebd/application/use-cases/user/get-user-details';
+import { CreateTrimesterController } from './controllers/trimester/create-trimester.controller';
+import { CreateTrimesterUseCase } from '@/domain/ebd/application/use-cases/trimester/create-trimester';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -18,6 +20,7 @@ import { GetUserDetailsUseCase } from '@/domain/ebd/application/use-cases/user/g
     AuthenticateUserController,
     CreateAccountUserController,
     CreateMemberController,
+    CreateTrimesterController,
     GetUserDetailsController,
     FetchMembersController,
   ],
@@ -25,6 +28,7 @@ import { GetUserDetailsUseCase } from '@/domain/ebd/application/use-cases/user/g
     AuthenticateUserUseCase,
     RegisterUserUseCase,
     CreateMemberUseCase,
+    CreateTrimesterUseCase,
     GetUserDetailsUseCase,
     FetchMembersUseCase,
   ],

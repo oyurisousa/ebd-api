@@ -49,7 +49,7 @@ describe('Register User', () => {
       email: faker.internet.email(),
       password: faker.internet.password(),
       role: UserRole.TEACHER,
-      username: faker.person.firstName(),
+      username: 'teach001',
       memberId: member.id.toString(),
     });
     expect(result.isRight()).toBeTruthy();

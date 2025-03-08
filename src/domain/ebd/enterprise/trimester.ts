@@ -5,6 +5,7 @@ import type { Optional } from '@/core/types/optional';
 export interface TrimesterProps {
   title: string;
   year: number;
+  quarter: number;
   startDate: Date;
   endDate: Date;
   createdAt: Date;
@@ -27,6 +28,18 @@ export class Trimester extends AggregateRoot<TrimesterProps> {
 
   set year(value: number) {
     this.props.year = value;
+    this.touch();
+  }
+
+  get quarter() {
+    return this.props.quarter;
+  }
+
+  set quarter(value: number) {
+    if (value < 1 || value > 4) {
+      throw new Error('Quarter must be between 1 and 4');
+    }
+    this.props.quarter = value;
     this.touch();
   }
 

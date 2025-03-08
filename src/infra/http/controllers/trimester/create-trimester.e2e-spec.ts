@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { UserFactory } from 'test/factories/make-user';
-describe('Register User (E2E)', () => {
+describe('Create Trimester (E2E)', () => {
   let app: INestApplication;
   let jwt: JwtService;
   let prisma: PrismaService;
@@ -31,10 +31,10 @@ describe('Register User (E2E)', () => {
     await app.init();
   });
 
-  test('[POST] /auth/register', async () => {
+  test('[POST] /trimester', async () => {
     const user = await userFactory.makePrismaUser({
-      role: UserRole.SECRETARY,
-      username: Username.create('mirian087'),
+      role: UserRole.SUPERINTENDENT,
+      username: Username.create('john3_16'),
     });
 
     const accessToken = jwt.sign({
@@ -43,20 +43,21 @@ describe('Register User (E2E)', () => {
     });
 
     const response = await request(app.getHttpServer())
-      .post('/auth/register')
+      .post('/trimester')
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        username: 'john_all01',
-        email: 'john@gmail.com',
-        password: '123456',
-        role: UserRole.SHEPHERD,
+        title: '4º Trimestre',
+        year: 2024,
+        quarter: 4,
+        startDate: new Date(2024, 9, 1),
+        endDate: new Date(2024, 11, 18),
       });
 
     expect(response.statusCode).toBe(201);
 
-    const userOnDataBase = await prisma.user.findUnique({
+    const userOnDataBase = await prisma.trimester.findFirst({
       where: {
-        email: 'john@gmail.com',
+        year: 2024,
       },
     });
 

@@ -257,6 +257,7 @@ async function createUser() {
 async function main() {
   await prisma.member.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.trimester.deleteMany();
   console.log('Table members is reseted.');
 
   await prisma.member.createMany({ data: members });

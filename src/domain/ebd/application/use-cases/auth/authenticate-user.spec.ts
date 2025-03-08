@@ -31,11 +31,11 @@ describe('Authenticate User', () => {
     });
 
     await inMemoryUsersRepository.create(user);
-
     const result = await sut.execute({
       username: 'moises_01',
       password: '1234567',
     });
+
     expect(result.isRight()).toBeTruthy();
     expect(result.value).toEqual({
       accessToken: expect.any(String),
