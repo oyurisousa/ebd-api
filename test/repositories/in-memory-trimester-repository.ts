@@ -17,4 +17,17 @@ export class InMemoryTrimestersRepository implements TrimestersRepository {
 
     return trimester;
   }
+
+  async findByQuarterAndYear(
+    quarter: number,
+    year: number,
+  ): Promise<Trimester | null> {
+    const trimester = this.items.find((trimester) => {
+      return trimester.quarter === quarter && trimester.year === year;
+    });
+
+    if (!trimester) return null;
+
+    return trimester;
+  }
 }

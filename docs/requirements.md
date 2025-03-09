@@ -8,7 +8,7 @@
 - ✅  Deve ser possível cadastrar um membro;
 - ✅  Deve ser possível cadastrar um usuário
 - ✅  Deve ser possível associar um membro já cadastrado a um usuário
-- [ ] Deve ser possível cadastrar trimestre;
+- ✅ Deve ser possível cadastrar trimestre;
 - [ ] Deve ser possível cadastrar professores;
 - [ ] Deve ser possível matricular alunos;
 - [ ] Deve ser possível cadastrar classes;
@@ -24,6 +24,7 @@
 ## RNs (Regras de Negócio)
 
 - ✅ Não podem haver dois usuários com o mesmo email;
+- ✅ Só podem haver 4 trimestres para um mesmo ano;
 - ✅ Não podem haver dois usuários com o mesmo username;
 - ✅ O sistema deve respeitar os níveis de permissão dos usuários (RBAC);
     1. SHEPHERD

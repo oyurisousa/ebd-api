@@ -1,8 +1,9 @@
-import { right, type Either } from '@/core/either';
+import { left, right, type Either } from '@/core/either';
 
 import { Trimester } from '@/domain/ebd/enterprise/trimester';
 import { Injectable } from '@nestjs/common';
 import { TrimestersRepository } from '../../repositories/trimester-repository';
+import { QuarterAlreadyExistsInYearError } from './quarter-already-exists-in-year-error';
 
 interface createTrimesterUseCaseRequest {
   title: string;
@@ -13,7 +14,7 @@ interface createTrimesterUseCaseRequest {
 }
 
 type createTrimesterUseCaseResponse = Either<
-  null,
+  QuarterAlreadyExistsInYearError,
   {
     trimester: Trimester;
   }
@@ -30,6 +31,12 @@ export class CreateTrimesterUseCase {
     startDate,
     endDate,
   }: createTrimesterUseCaseRequest): Promise<createTrimesterUseCaseResponse> {
+    const trimesterWithSameQuarterExists =
+      await this.trimesterRepository.findByQuarterAndYear(quarter, year);
+
+    if (trimesterWithSameQuarterExists) {
+      return left(new QuarterAlreadyExistsInYearError(quarter, year));
+    }
     const trimester = Trimester.create({
       title,
       year,
