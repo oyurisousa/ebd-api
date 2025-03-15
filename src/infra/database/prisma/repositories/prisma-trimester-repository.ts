@@ -26,4 +26,20 @@ export class PrismaTrimestersRepository implements TrimestersRepository {
 
     return PrismaTrimesterMapper.toDomain(trimester);
   }
+
+  async findByQuarterAndYear(
+    quarter: number,
+    year: number,
+  ): Promise<Trimester | null> {
+    const trimester = await this.prisma.trimester.findFirst({
+      where: {
+        quarter,
+        year,
+      },
+    });
+
+    if (!trimester) return null;
+
+    return PrismaTrimesterMapper.toDomain(trimester);
+  }
 }

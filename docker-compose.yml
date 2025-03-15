@@ -23,5 +23,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://docker:docker@postgres:5432/ebd?schema=public
     volumes:
-      - .:/app
       - /app/node_modules # Impede que o volume sobrescreva as dependências
+    # Não mapeie o diretório de código local na produção
+    # volumes:
+    #   - .:/app
