@@ -61,3 +61,14 @@ model Trimester {
 
   @@map("trimesters")
 }
+
+model Room {
+  id        String    @id @default(uuid())
+  name      String
+  minAge    Int?      @map("min_age")
+  maxAge    Int?      @map("max_age")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("rooms")
+}

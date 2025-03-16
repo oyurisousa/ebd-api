@@ -6,6 +6,8 @@ import { MembersRepository } from '@/domain/ebd/application/repositories/members
 import { PrismaMembersRepository } from './prisma/repositories/prisma-members-repository';
 import { TrimestersRepository } from '@/domain/ebd/application/repositories/trimester-repository';
 import { PrismaTrimestersRepository } from './prisma/repositories/prisma-trimester-repository';
+import { RoomsRepository } from '@/domain/ebd/application/repositories/rooms-repository';
+import { PrismaRoomsRepository } from './prisma/repositories/prisma-rooms-repository';
 
 @Module({
   providers: [
@@ -13,12 +15,14 @@ import { PrismaTrimestersRepository } from './prisma/repositories/prisma-trimest
     { provide: UsersRepository, useClass: PrismaUsersRepository },
     { provide: MembersRepository, useClass: PrismaMembersRepository },
     { provide: TrimestersRepository, useClass: PrismaTrimestersRepository },
+    { provide: RoomsRepository, useClass: PrismaRoomsRepository },
   ],
   exports: [
     PrismaService,
     UsersRepository,
     MembersRepository,
     TrimestersRepository,
+    RoomsRepository,
   ],
 })
 export class DatabaseModule {}

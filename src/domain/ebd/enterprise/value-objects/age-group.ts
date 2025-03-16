@@ -12,7 +12,7 @@ export class AgeGroup {
 
   static create(minAge?: number, maxAge?: number): AgeGroup {
     if (minAge === undefined && maxAge === undefined) {
-      return new AgeGroup(undefined, undefined, true); // Grupo sem restrição de idade
+      return new AgeGroup(undefined, undefined, true);
     }
 
     if (!AgeGroup.isValid(minAge, maxAge)) {
