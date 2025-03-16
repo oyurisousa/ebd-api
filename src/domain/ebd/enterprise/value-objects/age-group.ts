@@ -1,18 +1,20 @@
-export class AgeGroup {
-  public readonly minAge?: number;
-  public readonly maxAge?: number;
-  public readonly unrestricted: boolean;
+import { ValueObject } from '@/core/entities/value-object';
 
-  private constructor(minAge?: number, maxAge?: number, unrestricted = false) {
-    this.minAge = minAge;
-    this.maxAge = maxAge;
-    this.unrestricted = unrestricted;
+interface AgeGroupProps {
+  minAge?: number;
+  maxAge?: number;
+  unrestricted: boolean;
+}
+
+export class AgeGroup extends ValueObject<AgeGroupProps> {
+  private constructor(props: AgeGroupProps) {
+    super(props);
     Object.freeze(this);
   }
 
   static create(minAge?: number, maxAge?: number): AgeGroup {
     if (minAge === undefined && maxAge === undefined) {
-      return new AgeGroup(undefined, undefined, true);
+      return new AgeGroup({ unrestricted: true });
     }
 
     if (!AgeGroup.isValid(minAge, maxAge)) {
@@ -21,7 +23,7 @@ export class AgeGroup {
       );
     }
 
-    return new AgeGroup(minAge, maxAge);
+    return new AgeGroup({ minAge, maxAge, unrestricted: false });
   }
 
   private static isValid(minAge?: number, maxAge?: number): boolean {
@@ -32,6 +34,18 @@ export class AgeGroup {
     )
       return false;
     return true;
+  }
+
+  get minAge(): number | undefined {
+    return this.props.minAge;
+  }
+
+  get maxAge(): number | undefined {
+    return this.props.maxAge;
+  }
+
+  get unrestricted(): boolean {
+    return this.props.unrestricted;
   }
 
   toString(): string {
