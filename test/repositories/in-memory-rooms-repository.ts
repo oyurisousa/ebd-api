@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
-import type { RoomsRepository } from '@/domain/ebd/application/repositories/rooms-repository';
-import type { Room } from '@/domain/ebd/enterprise/room';
+import { RoomsRepository } from '@/domain/ebd/application/repositories/rooms-repository';
+import { Room } from '@/domain/ebd/enterprise/room';
 
 export class InMemoryRoomsRepository implements RoomsRepository {
   public items: Room[] = [];

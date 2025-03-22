@@ -39,7 +39,7 @@ model User {
 model Member {
   id        String    @id @default(uuid())
   name      String
-  birthDate DateTime  @map("bith_date")
+  birthDate DateTime  @map("birth_date")
   sex       Sex
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
@@ -50,25 +50,37 @@ model Member {
 }
 
 model Trimester {
-  id        String    @id @default(uuid())
-  title     String
-  year      Int
-  quarter   Int
-  startDate DateTime  @map("start_date")
-  endDate   DateTime  @map("end_date")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id            String          @id @default(uuid())
+  title         String
+  year          Int
+  quarter       Int
+  startDate     DateTime        @map("start_date")
+  endDate       DateTime        @map("end_date")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime?       @updatedAt @map("updated_at")
+  TrimesterRoom TrimesterRoom[]
 
   @@map("trimesters")
 }
 
 model Room {
-  id        String    @id @default(uuid())
-  name      String
-  minAge    Int?      @map("min_age")
-  maxAge    Int?      @map("max_age")
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
+  id            String          @id @default(uuid())
+  name          String
+  minAge        Int?            @map("min_age")
+  maxAge        Int?            @map("max_age")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime?       @updatedAt @map("updated_at")
+  TrimesterRoom TrimesterRoom[]
 
   @@map("rooms")
+}
+
+model TrimesterRoom {
+  id          String    @id @default(uuid())
+  roomId      String    @map("room_id")
+  trimesterId String    @map("trimester_id")
+  room        Room      @relation(fields: [roomId], references: [id])
+  trimester   Trimester @relation(fields: [trimesterId], references: [id])
+
+  @@unique([roomId, trimesterId])
 }

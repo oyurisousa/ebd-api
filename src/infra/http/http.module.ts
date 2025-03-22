@@ -15,6 +15,8 @@ import { CreateTrimesterController } from './controllers/trimester/create-trimes
 import { CreateTrimesterUseCase } from '@/domain/ebd/application/use-cases/trimester/create-trimester';
 import { CreateRoomController } from './controllers/room/create-room.controller';
 import { CreateRoomUseCase } from '@/domain/ebd/application/use-cases/room/create-room';
+import { CreateTrimesterRoomController } from './controllers/trimester-room/create-trimester-room.controller';
+import { CreateTrimesterRoomUseCase } from '@/domain/ebd/application/use-cases/trimester-room/create-trimester-room';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -24,6 +26,7 @@ import { CreateRoomUseCase } from '@/domain/ebd/application/use-cases/room/creat
     CreateMemberController,
     CreateTrimesterController,
     CreateRoomController,
+    CreateTrimesterRoomController,
     GetUserDetailsController,
     FetchMembersController,
   ],
@@ -33,6 +36,7 @@ import { CreateRoomUseCase } from '@/domain/ebd/application/use-cases/room/creat
     CreateMemberUseCase,
     CreateTrimesterUseCase,
     CreateRoomUseCase,
+    CreateTrimesterRoomUseCase,
     GetUserDetailsUseCase,
     FetchMembersUseCase,
   ],

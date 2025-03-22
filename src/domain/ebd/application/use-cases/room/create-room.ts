@@ -1,7 +1,7 @@
 import { left, right, type Either } from '@/core/either';
 
 import { Injectable } from '@nestjs/common';
-import type { AgeGroup } from '@/domain/ebd/enterprise/value-objects/age-group';
+import { AgeGroup } from '@/domain/ebd/enterprise/value-objects/age-group';
 import { RoomsRepository } from '../../repositories/rooms-repository';
 import { RoomAlreadyExistsError } from './_errors/room-already-exists-error';
 import { Room } from '@/domain/ebd/enterprise/room';
