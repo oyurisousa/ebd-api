@@ -19,6 +19,7 @@ import { CreateTrimesterRoomController } from './controllers/trimester-room/crea
 import { CreateTrimesterRoomUseCase } from '@/domain/ebd/application/use-cases/trimester-room/create-trimester-room';
 import { AllocateTeacherController } from './controllers/trimester-room/allocate-teacher.controller';
 import { AllocateTeacherUseCase } from '@/domain/ebd/application/use-cases/trimester-room/allocate-teacher';
+import { MeController } from './controllers/auth/me.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -32,6 +33,7 @@ import { AllocateTeacherUseCase } from '@/domain/ebd/application/use-cases/trime
     CreateTrimesterRoomController,
     GetUserDetailsController,
     FetchMembersController,
+    MeController,
   ],
   providers: [
     AuthenticateUserUseCase,
