@@ -9,6 +9,7 @@ export class PrismaTrimestersRoomsRepository
   implements TrimestersRoomsRepository
 {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(trimesterRoom: TrimesterRoom): Promise<void> {
     const data = PrismaTrimesterRoomMapper.toPrisma(trimesterRoom);
 
@@ -33,6 +34,39 @@ export class PrismaTrimestersRoomsRepository
     if (!trimesterRoom) {
       return null;
     }
+
+    return PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
+  }
+
+  async findById(id: string): Promise<TrimesterRoom | null> {
+    const trimesterRoom = await this.prisma.trimesterRoom.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!trimesterRoom) {
+      return null;
+    }
+
+    return PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
+  }
+  async addTeacher(
+    teacherId: string,
+    trimesterRoomId: string,
+  ): Promise<TrimesterRoom> {
+    const trimesterRoom = await this.prisma.trimesterRoom.update({
+      where: {
+        id: trimesterRoomId,
+      },
+      data: {
+        teachers: {
+          connect: {
+            id: teacherId,
+          },
+        },
+      },
+    });
 
     return PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
   }

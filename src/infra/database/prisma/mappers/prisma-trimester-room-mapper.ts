@@ -6,11 +6,16 @@ import {
 } from '@prisma/client';
 
 export class PrismaTrimesterRoomMapper {
-  static toDomain(raw: PrismaTrimesterRoom): TrimesterRoom {
+  static toDomain(
+    raw: PrismaTrimesterRoom & { teachers?: { id: string }[] },
+  ): TrimesterRoom {
     return TrimesterRoom.create(
       {
         roomId: new UniqueEntityId(raw.roomId),
         trimesterId: new UniqueEntityId(raw.trimesterId),
+        teachersIds: raw.teachers
+          ? raw.teachers.map((teacher) => new UniqueEntityId(teacher.id))
+          : [],
       },
       new UniqueEntityId(raw.id),
     );
@@ -23,6 +28,11 @@ export class PrismaTrimesterRoomMapper {
       id: trimester.id.toString(),
       roomId: trimester.roomId.toString(),
       trimesterId: trimester.trimesterId.toString(),
+      teachers: {
+        connect: trimester.teachersIds.map((teacherId) => ({
+          id: teacherId.toString(),
+        })),
+      },
     };
   }
 }

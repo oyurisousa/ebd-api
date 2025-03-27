@@ -10,6 +10,19 @@ export class InMemoryTrimestersRoomsRepository
   async create(trimesterRoom: TrimesterRoom): Promise<void> {
     this.items.push(trimesterRoom);
   }
+
+  async findById(id: string): Promise<TrimesterRoom | null> {
+    const trimesterRoom = this.items.find((item) =>
+      item.id.equal(new UniqueEntityId(id)),
+    );
+
+    if (!trimesterRoom) {
+      return null;
+    }
+
+    return trimesterRoom;
+  }
+
   async findByTrimesterIdAndRooId(
     trimesterId: string,
     roomId: string,
@@ -25,5 +38,28 @@ export class InMemoryTrimestersRoomsRepository
     }
 
     return trimester;
+  }
+
+  async addTeacher(
+    teacherId: string,
+    trimesterRoomId: string,
+  ): Promise<TrimesterRoom> {
+    const trimesterRoom = await this.findById(trimesterRoomId);
+    if (!trimesterRoom) {
+      throw new Error(`Trimester room with id "${trimesterRoomId} not found"`);
+    }
+
+    trimesterRoom.teachersIds = [
+      ...trimesterRoom.teachersIds,
+      new UniqueEntityId(teacherId),
+    ];
+
+    const trimesterRoomIndex = this.items.findIndex((item) =>
+      item.id.equal(new UniqueEntityId(trimesterRoomId)),
+    );
+
+    this.items[trimesterRoomIndex] = trimesterRoom;
+
+    return trimesterRoom;
   }
 }

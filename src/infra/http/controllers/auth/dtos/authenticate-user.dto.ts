@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthenticateUserDTO {
   @ApiProperty({
-    example: 'john_doe',
+    example: 'test',
     description: 'O nome de usuário do usuário utilizado para autenticação.',
   })
   @IsString({ message: 'O nome de usuário deve ser uma string' })
@@ -14,7 +14,7 @@ export class AuthenticateUserDTO {
   username: string;
 
   @ApiProperty({
-    example: 'senha123',
+    example: '12345678',
     description: 'A senha do usuário. Deve ter pelo menos 8 caracteres.',
   })
   @IsString({ message: 'A senha deve ser uma string' })

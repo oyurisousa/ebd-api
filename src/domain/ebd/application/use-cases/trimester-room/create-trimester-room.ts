@@ -38,6 +38,7 @@ export class CreateTrimesterRoomUseCase {
     const trimesterroom = TrimesterRoom.create({
       trimesterId: new UniqueEntityId(trimesterId),
       roomId: new UniqueEntityId(roomId),
+      teachersIds: [],
     });
 
     await this.trimestersRoomsRepository.create(trimesterroom);
