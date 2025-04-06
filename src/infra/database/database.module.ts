@@ -10,6 +10,8 @@ import { RoomsRepository } from '@/domain/ebd/application/repositories/rooms-rep
 import { PrismaRoomsRepository } from './prisma/repositories/prisma-rooms-repository';
 import { TrimestersRoomsRepository } from '@/domain/ebd/application/repositories/trimester-room-repository';
 import { PrismaTrimestersRoomsRepository } from './prisma/repositories/prisma-trimesters-rooms-repository';
+import { RegistrationsRepository } from '@/domain/ebd/application/repositories/registrations-repository';
+import { PrismaRegistrationsRepository } from './prisma/repositories/prisma-registrations-repository';
 
 @Module({
   providers: [
@@ -22,6 +24,10 @@ import { PrismaTrimestersRoomsRepository } from './prisma/repositories/prisma-tr
       provide: TrimestersRoomsRepository,
       useClass: PrismaTrimestersRoomsRepository,
     },
+    {
+      provide: RegistrationsRepository,
+      useClass: PrismaRegistrationsRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -30,6 +36,7 @@ import { PrismaTrimestersRoomsRepository } from './prisma/repositories/prisma-tr
     TrimestersRepository,
     RoomsRepository,
     TrimestersRoomsRepository,
+    RegistrationsRepository,
   ],
 })
 export class DatabaseModule {}

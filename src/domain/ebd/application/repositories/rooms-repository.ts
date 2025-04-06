@@ -1,4 +1,4 @@
-import type { Room } from '../../enterprise/room';
+import { Room } from '../../enterprise/room';
 
 export abstract class RoomsRepository {
   abstract create(Room: Room): Promise<void>;

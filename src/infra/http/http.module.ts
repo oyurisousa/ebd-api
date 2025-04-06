@@ -20,6 +20,8 @@ import { CreateTrimesterRoomUseCase } from '@/domain/ebd/application/use-cases/t
 import { AllocateTeacherController } from './controllers/trimester-room/allocate-teacher.controller';
 import { AllocateTeacherUseCase } from '@/domain/ebd/application/use-cases/trimester-room/allocate-teacher';
 import { MeController } from './controllers/auth/me.controller';
+import { EnrollStudentController } from './controllers/trimester-room/enroll-student.controller';
+import { EnrollStudentUseCase } from '@/domain/ebd/application/use-cases/trimester-room/enroll-student';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -34,6 +36,7 @@ import { MeController } from './controllers/auth/me.controller';
     GetUserDetailsController,
     FetchMembersController,
     MeController,
+    EnrollStudentController,
   ],
   providers: [
     AuthenticateUserUseCase,
@@ -45,6 +48,7 @@ import { MeController } from './controllers/auth/me.controller';
     CreateTrimesterRoomUseCase,
     GetUserDetailsUseCase,
     FetchMembersUseCase,
+    EnrollStudentUseCase,
   ],
 })
 export class HttpModule {}
