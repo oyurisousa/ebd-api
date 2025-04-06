@@ -3,7 +3,7 @@ import { left, right, type Either } from '@/core/either';
 import { Trimester } from '@/domain/ebd/enterprise/trimester';
 import { Injectable } from '@nestjs/common';
 import { TrimestersRepository } from '../../repositories/trimester-repository';
-import { QuarterAlreadyExistsInYearError } from './quarter-already-exists-in-year-error';
+import { QuarterAlreadyExistsInYearError } from './_errors/quarter-already-exists-in-year-error';
 
 interface createTrimesterUseCaseRequest {
   title: string;

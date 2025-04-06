@@ -1,6 +1,6 @@
 import { InMemoryTrimestersRepository } from 'test/repositories/in-memory-trimester-repository';
 import { CreateTrimesterUseCase } from './create-trimester';
-import { QuarterAlreadyExistsInYearError } from './quarter-already-exists-in-year-error';
+import { QuarterAlreadyExistsInYearError } from './_errors/quarter-already-exists-in-year-error';
 
 let inMemoryTrimestersRepository: InMemoryTrimestersRepository;
 let sut: CreateTrimesterUseCase;

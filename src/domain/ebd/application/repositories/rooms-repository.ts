@@ -1,6 +1,6 @@
-import type { PaginationParams } from '@/core/repositories/pagination-params';
+import { PaginationParams } from '@/core/repositories/pagination-params';
 import { Room } from '../../enterprise/room';
-import type { Meta } from '@/core/repositories/meta';
+import { Meta } from '@/core/repositories/meta';
 
 export abstract class RoomsRepository {
   abstract create(Room: Room): Promise<void>;

@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
-import type { Meta } from '@/core/repositories/meta';
+import { Meta } from '@/core/repositories/meta';
 import {
   PER_PAGE_DEFAULT,
   type PaginationParams,
