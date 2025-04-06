@@ -22,6 +22,8 @@ import { AllocateTeacherUseCase } from '@/domain/ebd/application/use-cases/trime
 import { MeController } from './controllers/auth/me.controller';
 import { EnrollStudentController } from './controllers/trimester-room/enroll-student.controller';
 import { EnrollStudentUseCase } from '@/domain/ebd/application/use-cases/trimester-room/enroll-student';
+import { FetchRoomsController } from './controllers/room/fetch-rooms.controller';
+import { FetchRoomsUseCase } from '@/domain/ebd/application/use-cases/room/fetch-rooms';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -35,6 +37,7 @@ import { EnrollStudentUseCase } from '@/domain/ebd/application/use-cases/trimest
     CreateTrimesterRoomController,
     GetUserDetailsController,
     FetchMembersController,
+    FetchRoomsController,
     MeController,
     EnrollStudentController,
   ],
@@ -48,6 +51,7 @@ import { EnrollStudentUseCase } from '@/domain/ebd/application/use-cases/trimest
     CreateTrimesterRoomUseCase,
     GetUserDetailsUseCase,
     FetchMembersUseCase,
+    FetchRoomsUseCase,
     EnrollStudentUseCase,
   ],
 })

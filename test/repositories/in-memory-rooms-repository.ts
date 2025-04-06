@@ -1,4 +1,9 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
+import type { Meta } from '@/core/repositories/meta';
+import {
+  PER_PAGE_DEFAULT,
+  type PaginationParams,
+} from '@/core/repositories/pagination-params';
 import { RoomsRepository } from '@/domain/ebd/application/repositories/rooms-repository';
 import { Room } from '@/domain/ebd/enterprise/room';
 
@@ -29,5 +34,31 @@ export class InMemoryRoomsRepository implements RoomsRepository {
     }
 
     return room;
+  }
+
+  async findMany(
+    { page, perPage = PER_PAGE_DEFAULT }: PaginationParams,
+    filters: { name?: string },
+  ): Promise<{ rooms: Room[]; meta: Meta }> {
+    const { name } = filters;
+    const roomsFiltered = this.items
+      .filter((room) => {
+        return room.name.toLowerCase().includes(name?.toLowerCase() ?? '');
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    const roomsPagination = roomsFiltered.splice(
+      (page - 1) * perPage,
+      perPage * page,
+    );
+
+    return {
+      rooms: roomsPagination,
+      meta: {
+        page,
+        totalCount: roomsFiltered.length,
+        totalPage: roomsPagination.length,
+      },
+    };
   }
 }
