@@ -254,14 +254,44 @@ async function createUser() {
   });
 }
 
+async function enviromentTrimester() {
+  const trimester = await prisma.trimester.create({
+    data: {
+      title: '2025.1',
+      quarter: 1,
+      startDate: new Date(2025, 0, 1),
+      endDate: new Date(2025, 2, 31),
+      year: 2025,
+    },
+  });
+
+  const room = await prisma.room.create({
+    data: {
+      name: 'Jovens',
+      minAge: 18,
+    },
+  });
+
+  await prisma.trimesterRoom.create({
+    data: {
+      roomId: room.id,
+      trimesterId: trimester.id,
+    },
+  });
+}
+
 async function main() {
+  await prisma.trimesterRoom.deleteMany();
+  await prisma.room.deleteMany();
+  await prisma.trimester.deleteMany();
   await prisma.member.deleteMany();
   await prisma.user.deleteMany();
-  await prisma.trimester.deleteMany();
+
   console.log('Tables is reseted.');
 
   await prisma.member.createMany({ data: members });
   await createUser();
+  await enviromentTrimester();
   console.log('Seed successfully!');
 }
 

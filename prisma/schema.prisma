@@ -45,7 +45,8 @@ model Member {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  User User?
+  User          User?
+  registrations Registration[]
 
   @@map("members")
 }
@@ -81,11 +82,25 @@ model TrimesterRoom {
   roomId      String @map("room_id")
   trimesterId String @map("trimester_id")
 
-  room      Room      @relation(fields: [roomId], references: [id])
-  trimester Trimester @relation(fields: [trimesterId], references: [id])
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-  teachers  User[]
+  room          Room           @relation(fields: [roomId], references: [id])
+  trimester     Trimester      @relation(fields: [trimesterId], references: [id])
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime?      @updatedAt @map("updated_at")
+  teachers      User[]
+  registrations Registration[]
 
   @@unique([roomId, trimesterId])
+}
+
+model Registration {
+  id              String @id @default(uuid())
+  trimesterRoomId String @map("trimester_room_id")
+  studentId       String @map("student_id")
+
+  timesterRoom TrimesterRoom @relation(fields: [trimesterRoomId], references: [id])
+  student      Member        @relation(fields: [studentId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("registrations")
 }
