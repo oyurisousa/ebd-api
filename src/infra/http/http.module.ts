@@ -26,6 +26,8 @@ import { FetchRoomsController } from './controllers/room/fetch-rooms.controller'
 import { FetchRoomsUseCase } from '@/domain/ebd/application/use-cases/room/fetch-rooms';
 import { FetchTrimestersController } from './controllers/trimester/fetch-trimesters.controller';
 import { FetchTrimestersUseCase } from '@/domain/ebd/application/use-cases/trimester/fetch-trimesters';
+import { FetchTrimesterRoomsController } from './controllers/trimester-room/fetch-trimesters-rooms.controller';
+import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/trimester-room/fetch-trimester-room';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -41,6 +43,7 @@ import { FetchTrimestersUseCase } from '@/domain/ebd/application/use-cases/trime
     FetchMembersController,
     FetchRoomsController,
     FetchTrimestersController,
+    FetchTrimesterRoomsController,
     MeController,
     EnrollStudentController,
   ],
@@ -56,6 +59,7 @@ import { FetchTrimestersUseCase } from '@/domain/ebd/application/use-cases/trime
     FetchMembersUseCase,
     FetchRoomsUseCase,
     FetchTrimestersUseCase,
+    FetchTrimesterRoomsUseCase,
     EnrollStudentUseCase,
   ],
 })

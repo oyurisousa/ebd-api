@@ -3,6 +3,13 @@ import { TrimesterRoom } from '@/domain/ebd/enterprise/trimester-room';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { PrismaTrimesterRoomMapper } from '../mappers/prisma-trimester-room-mapper';
+import { Meta } from '@/core/repositories/meta';
+import {
+  PER_PAGE_DEFAULT,
+  type PaginationParams,
+} from '@/core/repositories/pagination-params';
+import { Prisma } from '@prisma/client';
+import { TrimesterRoomWithRoom } from '@/domain/ebd/enterprise/value-objects/trimester-room-with-room';
 
 @Injectable()
 export class PrismaTrimestersRoomsRepository
@@ -69,5 +76,65 @@ export class PrismaTrimestersRoomsRepository
     });
 
     return PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
+  }
+
+  async findMany(
+    { page, perPage = PER_PAGE_DEFAULT }: PaginationParams,
+    trimesterId: string,
+  ): Promise<{
+    trimestersRooms: TrimesterRoomWithRoom[];
+    meta: Meta;
+  }> {
+    const whereClause: Prisma.TrimesterRoomWhereInput = {
+      trimesterId: {
+        equals: trimesterId,
+      },
+    };
+
+    const [trimestersRooms, totalCount] = await Promise.all([
+      this.prisma.trimesterRoom.findMany({
+        where: whereClause,
+        include: {
+          room: {
+            select: {
+              name: true,
+            },
+          },
+        },
+        take: perPage,
+        skip: (page - 1) * perPage,
+        orderBy: {
+          room: {
+            name: 'desc',
+          },
+        },
+      }),
+      this.prisma.trimesterRoom.count({
+        where: whereClause,
+      }),
+    ]);
+
+    const trimestersRoomsMapped = trimestersRooms.map((trimesterRoom) => {
+      const trimesterRoomMapped =
+        PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
+
+      return TrimesterRoomWithRoom.create({
+        registrationsIds: trimesterRoomMapped.registrationsIds,
+        name: trimesterRoom.room.name,
+        roomId: trimesterRoomMapped.roomId,
+        teachersIds: trimesterRoomMapped.teachersIds,
+        trimesterId: trimesterRoomMapped.trimesterId,
+        trimesterRoomId: trimesterRoomMapped.id,
+      });
+    });
+
+    return {
+      trimestersRooms: trimestersRoomsMapped,
+      meta: {
+        page,
+        totalCount,
+        totalPage: trimestersRooms.length,
+      },
+    };
   }
 }

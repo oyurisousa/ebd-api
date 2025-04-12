@@ -7,7 +7,10 @@ import {
 
 export class PrismaTrimesterRoomMapper {
   static toDomain(
-    raw: PrismaTrimesterRoom & { teachers?: { id: string }[] },
+    raw: PrismaTrimesterRoom & {
+      teachers?: { id: string }[];
+      registrations?: { id: string }[];
+    },
   ): TrimesterRoom {
     return TrimesterRoom.create(
       {
@@ -15,6 +18,11 @@ export class PrismaTrimesterRoomMapper {
         trimesterId: new UniqueEntityId(raw.trimesterId),
         teachersIds: raw.teachers
           ? raw.teachers.map((teacher) => new UniqueEntityId(teacher.id))
+          : [],
+        registrationsIds: raw.registrations
+          ? raw.registrations.map(
+              (registration) => new UniqueEntityId(registration.id),
+            )
           : [],
       },
       new UniqueEntityId(raw.id),
@@ -31,6 +39,11 @@ export class PrismaTrimesterRoomMapper {
       teachers: {
         connect: trimester.teachersIds.map((teacherId) => ({
           id: teacherId.toString(),
+        })),
+      },
+      registrations: {
+        connect: trimester.registrationsIds.map((registrationId) => ({
+          id: registrationId.toString(),
         })),
       },
     };

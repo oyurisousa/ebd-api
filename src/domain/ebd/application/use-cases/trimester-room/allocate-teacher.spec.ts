@@ -27,7 +27,9 @@ describe('Allocate Teacher', () => {
     inMemoryMembersRepository = new InMemoryMembersRepository();
     inMemoryTrimestersRepository = new InMemoryTrimestersRepository();
     inMemoryRoomsRepository = new InMemoryRoomsRepository();
-    inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository();
+    inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository(
+      inMemoryRoomsRepository,
+    );
     sut = new AllocateTeacherUseCase(
       inMemoryTrimestersRoomsRepository,
       inMemoryUsersRepository,

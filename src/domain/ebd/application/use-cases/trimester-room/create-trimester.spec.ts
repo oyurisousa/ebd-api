@@ -15,7 +15,9 @@ describe('Create TrimesterRoom', () => {
   beforeEach(() => {
     inMemoryTrimestersRepository = new InMemoryTrimestersRepository();
     inMemoryRoomsRepository = new InMemoryRoomsRepository();
-    inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository();
+    inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository(
+      inMemoryRoomsRepository,
+    );
     sut = new CreateTrimesterRoomUseCase(inMemoryTrimestersRoomsRepository);
   });
 

@@ -5,6 +5,7 @@ export interface TrimesterRoomProps {
   trimesterId: UniqueEntityId;
   roomId: UniqueEntityId;
   teachersIds: UniqueEntityId[];
+  registrationsIds: UniqueEntityId[];
 }
 
 export class TrimesterRoom extends Entity<TrimesterRoomProps> {
@@ -22,6 +23,14 @@ export class TrimesterRoom extends Entity<TrimesterRoomProps> {
 
   set teachersIds(ids: UniqueEntityId[]) {
     this.props.teachersIds = ids;
+  }
+
+  get registrationsIds() {
+    return this.props.registrationsIds;
+  }
+
+  set registrationsIds(ids: UniqueEntityId[]) {
+    this.props.registrationsIds = ids;
   }
 
   static create(props: TrimesterRoomProps, id?: UniqueEntityId) {

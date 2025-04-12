@@ -16,6 +16,7 @@ export function makeTrimesterRoom(
       roomId: new UniqueEntityId(),
       trimesterId: new UniqueEntityId(),
       teachersIds: [],
+      registrationsIds: [],
       ...override,
     },
     id,
