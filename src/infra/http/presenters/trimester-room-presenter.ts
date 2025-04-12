@@ -5,8 +5,8 @@ export class TrimesterRoomPresenter {
     return {
       id: trimesterRoom.trimesterRoomId.toString(),
       name: trimesterRoom.name,
-      roomId: trimesterRoom.roomId,
-      trimesterId: trimesterRoom.trimesterId,
+      roomId: trimesterRoom.roomId.toString(),
+      trimesterId: trimesterRoom.trimesterId.toString(),
       registrations: trimesterRoom.registrationsIds.length,
       teachers: trimesterRoom.teachersIds.length,
     };

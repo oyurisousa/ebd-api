@@ -100,6 +100,8 @@ export class PrismaTrimestersRoomsRepository
               name: true,
             },
           },
+          registrations: true,
+          teachers: true,
         },
         take: perPage,
         skip: (page - 1) * perPage,
@@ -127,6 +129,7 @@ export class PrismaTrimestersRoomsRepository
         trimesterRoomId: trimesterRoomMapped.id,
       });
     });
+    console.log(trimestersRoomsMapped);
 
     return {
       trimestersRooms: trimestersRoomsMapped,
