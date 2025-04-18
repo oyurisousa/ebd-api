@@ -129,7 +129,6 @@ export class PrismaTrimestersRoomsRepository
         trimesterRoomId: trimesterRoomMapped.id,
       });
     });
-    console.log(trimestersRoomsMapped);
 
     return {
       trimestersRooms: trimestersRoomsMapped,

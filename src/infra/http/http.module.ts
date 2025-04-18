@@ -28,6 +28,8 @@ import { FetchTrimestersController } from './controllers/trimester/fetch-trimest
 import { FetchTrimestersUseCase } from '@/domain/ebd/application/use-cases/trimester/fetch-trimesters';
 import { FetchTrimesterRoomsController } from './controllers/trimester-room/fetch-trimesters-rooms.controller';
 import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/trimester-room/fetch-trimester-room';
+import { CreatePreLessonController } from './controllers/lesson/create-pre-lesson.controller';
+import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesson/create-pre-lesson';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -39,6 +41,7 @@ import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/t
     CreateTrimesterController,
     CreateRoomController,
     CreateTrimesterRoomController,
+    CreatePreLessonController,
     GetUserDetailsController,
     FetchMembersController,
     FetchRoomsController,
@@ -55,6 +58,7 @@ import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/t
     CreateTrimesterUseCase,
     CreateRoomUseCase,
     CreateTrimesterRoomUseCase,
+    CreatePreLessonUseCase,
     GetUserDetailsUseCase,
     FetchMembersUseCase,
     FetchRoomsUseCase,

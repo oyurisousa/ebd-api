@@ -61,6 +61,7 @@ model Trimester {
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime?       @updatedAt @map("updated_at")
   TrimesterRoom TrimesterRoom[]
+  preLessons    PreLesson[]
 
   @@map("trimesters")
 }
@@ -103,4 +104,15 @@ model Registration {
   createdAt DateTime @default(now()) @map("created_at")
 
   @@map("registrations")
+}
+
+model PreLesson {
+  id          String    @id @default(uuid())
+  trimesterId String
+  lesson      Int
+  date        DateTime
+  createdAt   DateTime  @default(now()) @map("created_at")
+  trimester   Trimester @relation(fields: [trimesterId], references: [id])
+
+  @@map("pre-lessons")
 }
