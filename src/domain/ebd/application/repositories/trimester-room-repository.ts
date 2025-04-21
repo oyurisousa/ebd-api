@@ -10,8 +10,8 @@ export abstract class TrimestersRoomsRepository {
     trimesterId: string,
     roomId: string,
   ): Promise<TrimesterRoom | null>;
-  abstract addTeacher(
-    teacherId: string,
+  abstract addTeachers(
+    teachersId: string[],
     trimesterRoomId: string,
   ): Promise<TrimesterRoom>;
   abstract findMany(

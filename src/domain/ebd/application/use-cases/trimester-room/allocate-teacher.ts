@@ -9,13 +9,13 @@ import { UserNotFoundError } from '../user/_errors/user-not-found-error';
 import { UserRole } from '@/domain/ebd/enterprise/user';
 import { UserIsNotATeacherError } from './_erros/user-is-not-a-teacher-error';
 
-interface allocateTeacherUseCaseRequest {
+interface AllocateTeacherUseCaseRequest {
   trimesterRoomId: string;
-  teacherId: string;
+  teachersIds: string[];
 }
 
-type allocateTeacherUseCaseResponse = Either<
-  TrimesterRoomNotFoundError | UserNotFoundError,
+type AllocateTeacherUseCaseResponse = Either<
+  TrimesterRoomNotFoundError | UserNotFoundError | UserIsNotATeacherError,
   {
     trimesterRoom: TrimesterRoom;
   }
@@ -29,24 +29,36 @@ export class AllocateTeacherUseCase {
   ) {}
 
   async execute({
-    teacherId,
+    teachersIds: teachersIds,
     trimesterRoomId,
-  }: allocateTeacherUseCaseRequest): Promise<allocateTeacherUseCaseResponse> {
+  }: AllocateTeacherUseCaseRequest): Promise<AllocateTeacherUseCaseResponse> {
     const trimesterRoom =
       await this.trimestersRoomsRepository.findById(trimesterRoomId);
     if (!trimesterRoom) {
       return left(new TrimesterRoomNotFoundError(trimesterRoomId));
     }
 
-    const teacher = await this.usersRepository.findById(teacherId);
-    if (!teacher) {
-      return left(new UserNotFoundError(teacherId));
-    }
-    if (teacher.role !== UserRole.TEACHER) {
-      return left(new UserIsNotATeacherError());
+    const teachers = await Promise.all(
+      teachersIds.map((id) => this.usersRepository.findById(id)),
+    );
+
+    for (let i = 0; i < teachers.length; i++) {
+      const teacher = teachers[i];
+      const teacherId = teachersIds[i];
+
+      if (!teacher) {
+        return left(new UserNotFoundError(teacherId));
+      }
+
+      if (teacher.role !== UserRole.TEACHER) {
+        return left(new UserIsNotATeacherError());
+      }
     }
 
-    await this.trimestersRoomsRepository.addTeacher(teacherId, trimesterRoomId);
+    await this.trimestersRoomsRepository.addTeachers(
+      teachersIds,
+      trimesterRoomId,
+    );
 
     return right({
       trimesterRoom,

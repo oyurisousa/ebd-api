@@ -58,8 +58,8 @@ export class PrismaTrimestersRoomsRepository
 
     return PrismaTrimesterRoomMapper.toDomain(trimesterRoom);
   }
-  async addTeacher(
-    teacherId: string,
+  async addTeachers(
+    teachersIds: string[],
     trimesterRoomId: string,
   ): Promise<TrimesterRoom> {
     const trimesterRoom = await this.prisma.trimesterRoom.update({
@@ -68,9 +68,7 @@ export class PrismaTrimestersRoomsRepository
       },
       data: {
         teachers: {
-          connect: {
-            id: teacherId,
-          },
+          connect: teachersIds.map((id) => ({ id })),
         },
       },
     });

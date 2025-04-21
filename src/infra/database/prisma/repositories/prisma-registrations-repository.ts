@@ -9,7 +9,7 @@ import {
   PER_PAGE_DEFAULT,
 } from '@/core/repositories/pagination-params';
 import { RegistrationWithName } from '@/domain/ebd/enterprise/value-objects/registration-with-name';
-import type { Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PrismaRegistrationWithNameMapper } from '../mappers/prisma-registration-with-name-mapper';
 
 @Injectable()

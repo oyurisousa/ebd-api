@@ -20,8 +20,10 @@ let sut: EnrollStudentUseCase;
 
 describe('Enroll Student', () => {
   beforeEach(() => {
-    inMemoryRegistrationsRepository = new InMemoryRegistrationsRepository();
     inMemoryMembersRepository = new InMemoryMembersRepository();
+    inMemoryRegistrationsRepository = new InMemoryRegistrationsRepository(
+      inMemoryMembersRepository,
+    );
     inMemoryTrimestersRepository = new InMemoryTrimestersRepository();
     inMemoryRoomsRepository = new InMemoryRoomsRepository();
     inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository(

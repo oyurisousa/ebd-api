@@ -33,10 +33,10 @@ export class AllocateTeacherController {
   @Post()
   @HttpCode(201)
   async handle(@Body() body: AllocateTeacherDto) {
-    const { teacherId, trimesterRoomId } = body;
+    const { teachersIds, trimesterRoomId } = body;
 
     const result = await this.allocateTeacherDto.execute({
-      teacherId,
+      teachersIds,
       trimesterRoomId,
     });
 

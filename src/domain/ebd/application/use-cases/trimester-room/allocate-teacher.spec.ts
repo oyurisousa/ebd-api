@@ -63,7 +63,7 @@ describe('Allocate Teacher', () => {
     });
     await inMemoryTrimestersRoomsRepository.create(trimesterRoom);
     const result = await sut.execute({
-      teacherId: teacher.id.toString(),
+      teachersIds: [teacher.id.toString()],
       trimesterRoomId: trimesterRoom.id.toString(),
     });
 

@@ -74,6 +74,18 @@ describe('Allocate a Teacher (E2E)', () => {
       memberId: member.id,
     });
 
+    const member2 = await memberFactory.makePrismaMember({
+      name: 'Pedro',
+      birthDate: new Date('2000-01-01'),
+      sex: Sex.FEMALE,
+    });
+
+    const teacher2 = await userFactory.makePrismaUser({
+      role: UserRole.TEACHER,
+      username: Username.create('pedro_3x'),
+      memberId: member2.id,
+    });
+
     const trimester = await trimesterFactory.makePrismaTrimester({
       title: '2025.1',
     });
@@ -93,17 +105,21 @@ describe('Allocate a Teacher (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         trimesterRoomId: trimesterRoom.id.toString(),
-        teacherId: teacher.id.toString(),
+        teachersIds: [teacher.id.toString(), teacher2.id.toString()],
       });
 
     expect(response.statusCode).toBe(201);
 
     const allocateOnDataBase = await prisma.trimesterRoom.findFirst({
       where: {
-        teachers: { some: { id: teacher.id.toString() } },
+        id: trimesterRoom.id.toString(),
+      },
+      include: {
+        teachers: true,
       },
     });
 
     expect(allocateOnDataBase).toBeTruthy();
+    expect(allocateOnDataBase?.teachers).toHaveLength(2);
   });
 });
