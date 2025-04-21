@@ -30,6 +30,8 @@ import { FetchTrimesterRoomsController } from './controllers/trimester-room/fetc
 import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/trimester-room/fetch-trimester-room';
 import { CreatePreLessonController } from './controllers/lesson/create-pre-lesson.controller';
 import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesson/create-pre-lesson';
+import { FetchRegistrationsController } from './controllers/registration/fetch-registrations.controller';
+import { FetchRegistrationsUseCase } from '@/domain/ebd/application/use-cases/registration/fetch-registrations';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -47,6 +49,7 @@ import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesso
     FetchRoomsController,
     FetchTrimestersController,
     FetchTrimesterRoomsController,
+    FetchRegistrationsController,
     MeController,
     EnrollStudentController,
   ],
@@ -64,6 +67,7 @@ import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesso
     FetchRoomsUseCase,
     FetchTrimestersUseCase,
     FetchTrimesterRoomsUseCase,
+    FetchRegistrationsUseCase,
     EnrollStudentUseCase,
   ],
 })
