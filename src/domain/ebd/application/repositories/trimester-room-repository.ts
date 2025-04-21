@@ -4,7 +4,7 @@ import { Meta } from '@/core/repositories/meta';
 import { TrimesterRoomWithRoom } from '../../enterprise/value-objects/trimester-room-with-room';
 
 export abstract class TrimestersRoomsRepository {
-  abstract create(trimesterRoom: TrimesterRoom): Promise<void>;
+  abstract createMany(trimestersRooms: TrimesterRoom[]): Promise<void>;
   abstract findById(id: string): Promise<TrimesterRoom | null>;
   abstract findByTrimesterIdAndRooId(
     trimesterId: string,

@@ -10,15 +10,14 @@ export class AllocateTeacherDto {
       '123e4567-e89b-12d3-a456-426614174000',
       '123e4567-e89b-12d3-a456-426614174001',
     ],
-    description:
-      'Array of IDs for therapeutic classes associated with the medicine.',
+    description: 'Array of IDs teachers ',
     isArray: true,
     type: String,
   })
-  @IsArray({ message: 'Therapeutic classes must be an array of IDs.' })
+  @IsArray({ message: 'Teachers must be an array of IDs.' })
   @IsString({
     each: true,
-    message: 'Each therapeutic class ID must be a string.',
+    message: 'Teachers class ID must be a string.',
   })
   teachersIds: string[];
 }

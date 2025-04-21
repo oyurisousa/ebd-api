@@ -32,10 +32,10 @@ export class CreateTrimesterRoomController {
   @Post()
   @HttpCode(201)
   async handle(@Body() body: CreateTrimesterRoomDto) {
-    const { roomId, trimesterId } = body;
+    const { roomsIds, trimesterId } = body;
 
     const result = await this.createTrimesterRoomDto.execute({
-      roomId,
+      roomsIds,
       trimesterId,
     });
 

@@ -34,27 +34,27 @@ describe('Fetch Trimester Rooms', () => {
       inMemoryRoomsRepository.create(room3),
     ]);
 
-    await inMemoryTrimesterRoomsRepository.create(
+    await inMemoryTrimesterRoomsRepository.createMany([
       makeTrimesterRoom({
         roomId: room1.id,
         trimesterId: trimester.id,
       }),
-    );
+    ]);
 
-    await inMemoryTrimesterRoomsRepository.create(
+    await inMemoryTrimesterRoomsRepository.createMany([
       makeTrimesterRoom({
         roomId: room2.id,
         trimesterId: trimester.id,
         teachersIds: [],
       }),
-    );
-    await inMemoryTrimesterRoomsRepository.create(
+    ]);
+    await inMemoryTrimesterRoomsRepository.createMany([
       makeTrimesterRoom({
         roomId: room3.id,
         trimesterId: trimester.id,
         teachersIds: [],
       }),
-    );
+    ]);
 
     const result = await sut.execute({
       page: 1,
@@ -82,12 +82,12 @@ describe('Fetch Trimester Rooms', () => {
       const room = makeRoom();
       await inMemoryRoomsRepository.create(room);
 
-      await inMemoryTrimesterRoomsRepository.create(
+      await inMemoryTrimesterRoomsRepository.createMany([
         makeTrimesterRoom({
           roomId: room.id,
           trimesterId: trimester.id,
         }),
-      );
+      ]);
     }
     const result = await sut.execute({
       page: 3,

@@ -17,12 +17,16 @@ export class PrismaTrimestersRoomsRepository
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(trimesterRoom: TrimesterRoom): Promise<void> {
-    const data = PrismaTrimesterRoomMapper.toPrisma(trimesterRoom);
+  async createMany(trimestersRooms: TrimesterRoom[]): Promise<void> {
+    const data = trimestersRooms.map(PrismaTrimesterRoomMapper.toPrisma);
 
-    await this.prisma.trimesterRoom.create({
-      data,
-    });
+    await Promise.all(
+      data.map((trimesterRoom) =>
+        this.prisma.trimesterRoom.create({
+          data: trimesterRoom,
+        }),
+      ),
+    );
   }
 
   async findByTrimesterIdAndRooId(

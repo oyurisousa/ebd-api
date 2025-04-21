@@ -32,7 +32,7 @@ describe('Create TrimesterRoom', () => {
     await inMemoryRoomsRepository.create(room);
 
     const result = await sut.execute({
-      roomId: room.id.toString(),
+      roomsIds: [room.id.toString()],
       trimesterId: trimester.id.toString(),
     });
 

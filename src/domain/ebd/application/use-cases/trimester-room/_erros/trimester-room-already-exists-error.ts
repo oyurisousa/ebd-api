@@ -4,8 +4,8 @@ export class TrimesterRoomAlreadyExistsError
   extends Error
   implements UseCaseError
 {
-  constructor() {
-    super(`Essa sala já foi adicionada ao trimestre.`);
-    this.name = 'TrimesterRoomALreadyExistsError';
+  constructor(roomId: string) {
+    super(`A sala com ID ${roomId} já foi adicionada ao trimestre.`);
+    this.name = 'TrimesterRoomAlreadyExistsError';
   }
 }

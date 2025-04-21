@@ -62,7 +62,7 @@ describe('Create Trimester Room (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         trimesterId: trimester.id.toString(),
-        roomId: room.id.toString(),
+        roomsIds: [room.id.toString()],
       });
 
     expect(response.statusCode).toBe(201);

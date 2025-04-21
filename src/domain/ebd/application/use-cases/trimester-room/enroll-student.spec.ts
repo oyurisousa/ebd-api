@@ -56,7 +56,7 @@ describe('Enroll Student', () => {
       roomId: room.id,
       trimesterId: trimester.id,
     });
-    await inMemoryTrimestersRoomsRepository.create(trimesterRoom);
+    await inMemoryTrimestersRoomsRepository.createMany([trimesterRoom]);
 
     const result = await sut.execute({
       studentsIds: [member.id.toString(), member2.id.toString()],

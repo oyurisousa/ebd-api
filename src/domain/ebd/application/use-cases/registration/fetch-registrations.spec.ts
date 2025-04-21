@@ -41,7 +41,7 @@ describe('Fetch Registrations', () => {
       roomId: room.id,
       trimesterId: trimester.id,
     });
-    await inMemoryTrimestersRoomsRepository.create(trimesterRoom);
+    await inMemoryTrimestersRoomsRepository.createMany([trimesterRoom]);
 
     const member1 = makeMember({ name: 'pedro' });
     const member2 = makeMember({ name: 'thiago' });
@@ -94,7 +94,7 @@ describe('Fetch Registrations', () => {
       roomId: room.id,
       trimesterId: trimester.id,
     });
-    await inMemoryTrimestersRoomsRepository.create(trimesterRoom);
+    await inMemoryTrimestersRoomsRepository.createMany([trimesterRoom]);
 
     for (let i = 1; i <= 22; i++) {
       const member = makeMember({ name: `joão ${i}` });

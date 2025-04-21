@@ -15,8 +15,8 @@ export class InMemoryTrimestersRoomsRepository
   constructor(private roomsRepository: InMemoryRoomsRepository) {}
   public items: TrimesterRoom[] = [];
 
-  async create(trimesterRoom: TrimesterRoom): Promise<void> {
-    this.items.push(trimesterRoom);
+  async createMany(trimestesRooms: TrimesterRoom[]): Promise<void> {
+    this.items.push(...trimestesRooms);
   }
 
   async findById(id: string): Promise<TrimesterRoom | null> {
