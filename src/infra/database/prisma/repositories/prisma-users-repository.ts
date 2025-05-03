@@ -1,8 +1,14 @@
 import { UsersRepository } from '@/domain/ebd/application/repositories/users-repository';
-import { User } from '@/domain/ebd/enterprise/user';
+import { User, type UserRole } from '@/domain/ebd/enterprise/user';
 import { Injectable } from '@nestjs/common';
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
 import { PrismaService } from '../prisma.service';
+import type { Meta } from '@/core/repositories/meta';
+import {
+  PER_PAGE_DEFAULT,
+  type PaginationParams,
+} from '@/core/repositories/pagination-params';
+import { $Enums, type Prisma } from '@prisma/client';
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
@@ -49,5 +55,48 @@ export class PrismaUsersRepository implements UsersRepository {
     if (!user) return null;
 
     return PrismaUserMapper.toDomain(user);
+  }
+
+  async findMany(
+    { page, perPage = PER_PAGE_DEFAULT }: PaginationParams,
+    filters: { content?: string; role?: UserRole },
+  ): Promise<{ users: User[]; meta: Meta }> {
+    const { content, role } = filters;
+
+    const whereClause: Prisma.UserWhereInput = {
+      OR: content
+        ? [
+            { email: { contains: content, mode: 'insensitive' } },
+            { username: { contains: content, mode: 'insensitive' } },
+          ]
+        : undefined,
+      ...(role && {
+        role: $Enums.UserRole[role],
+      }),
+    };
+
+    const [users, totalCount] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        where: whereClause,
+        take: perPage,
+        skip: (page - 1) * perPage,
+        orderBy: {
+          username: 'asc',
+        },
+      }),
+      this.prisma.user.count({
+        where: whereClause,
+      }),
+    ]);
+    const usersMapped = users.map(PrismaUserMapper.toDomain);
+
+    return {
+      users: usersMapped,
+      meta: {
+        page,
+        totalCount,
+        totalPage: users.length,
+      },
+    };
   }
 }

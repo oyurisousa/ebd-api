@@ -32,6 +32,8 @@ import { CreatePreLessonController } from './controllers/lesson/create-pre-lesso
 import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesson/create-pre-lesson';
 import { FetchRegistrationsController } from './controllers/registration/fetch-registrations.controller';
 import { FetchRegistrationsUseCase } from '@/domain/ebd/application/use-cases/registration/fetch-registrations';
+import { FetchUsersController } from './controllers/user/fetch-users.controller';
+import { FetchUsersUseCase } from '@/domain/ebd/application/use-cases/user/fetch-users';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],
@@ -50,6 +52,7 @@ import { FetchRegistrationsUseCase } from '@/domain/ebd/application/use-cases/re
     FetchTrimestersController,
     FetchTrimesterRoomsController,
     FetchRegistrationsController,
+    FetchUsersController,
     MeController,
     EnrollStudentController,
   ],
@@ -68,6 +71,7 @@ import { FetchRegistrationsUseCase } from '@/domain/ebd/application/use-cases/re
     FetchTrimestersUseCase,
     FetchTrimesterRoomsUseCase,
     FetchRegistrationsUseCase,
+    FetchUsersUseCase,
     EnrollStudentUseCase,
   ],
 })
