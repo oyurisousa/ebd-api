@@ -17,7 +17,7 @@
 - [ ] Deve ser possível visualizar a frequência de um aluno;
 - [ ] Deve ser possível gerar estatísticas de participação;
 - [ ] Deve ser possível emitir relatórios de presença;
-- [ ] Deve ser possível registrar uma pré aula.
+- ✅ Deve ser possível registrar uma pré aula.
 
 ## RNs (Regras de Negócio)
 

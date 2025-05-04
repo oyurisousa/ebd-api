@@ -1,7 +1,7 @@
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { Registration } from '../../enterprise/registration';
 import { Meta } from '@/core/repositories/meta';
-import type { RegistrationWithName } from '../../enterprise/value-objects/registration-with-name';
+import { RegistrationWithName } from '../../enterprise/value-objects/registration-with-name';
 
 export abstract class RegistrationsRepository {
   abstract create(registration: Registration): Promise<void>;

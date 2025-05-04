@@ -3,7 +3,7 @@ import { User, type UserRole } from '@/domain/ebd/enterprise/user';
 import { Injectable } from '@nestjs/common';
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper';
 import { PrismaService } from '../prisma.service';
-import type { Meta } from '@/core/repositories/meta';
+import { Meta } from '@/core/repositories/meta';
 import {
   PER_PAGE_DEFAULT,
   type PaginationParams,

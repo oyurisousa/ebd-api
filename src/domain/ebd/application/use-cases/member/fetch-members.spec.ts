@@ -26,7 +26,6 @@ describe('Fetch manufatureres', () => {
     const result = await sut.execute({
       page: 1,
     });
-
     expect(result.value?.members).toEqual([
       expect.objectContaining({ createdAt: new Date(2024, 0, 29) }),
       expect.objectContaining({ createdAt: new Date(2024, 0, 27) }),

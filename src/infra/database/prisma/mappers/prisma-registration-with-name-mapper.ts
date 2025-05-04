@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id';
 import { RegistrationWithName } from '@/domain/ebd/enterprise/value-objects/registration-with-name';
-import type { Registration as PrismaRegistration } from '@prisma/client';
+import { Registration as PrismaRegistration } from '@prisma/client';
 
 export class PrismaRegistrationWithNameMapper {
   static toDomain(

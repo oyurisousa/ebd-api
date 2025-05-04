@@ -1,5 +1,5 @@
-import type { Meta } from '@/core/repositories/meta';
-import type { PaginationParams } from '@/core/repositories/pagination-params';
+import { Meta } from '@/core/repositories/meta';
+import { PaginationParams } from '@/core/repositories/pagination-params';
 import { User, type UserRole } from '@/domain/ebd/enterprise/user';
 
 export abstract class UsersRepository {

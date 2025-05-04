@@ -2,7 +2,7 @@ import { Either, right } from '@/core/either';
 import { Injectable } from '@nestjs/common';
 import { Meta } from '@/core/repositories/meta';
 import { RegistrationsRepository } from '../../repositories/registrations-repository';
-import type { RegistrationWithName } from '@/domain/ebd/enterprise/value-objects/registration-with-name';
+import { RegistrationWithName } from '@/domain/ebd/enterprise/value-objects/registration-with-name';
 
 interface FetchRegistrationsUseCaseRequest {
   page: number;

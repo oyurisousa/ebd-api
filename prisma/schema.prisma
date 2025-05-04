@@ -89,6 +89,7 @@ model TrimesterRoom {
   updatedAt     DateTime?      @updatedAt @map("updated_at")
   teachers      User[]
   registrations Registration[]
+  Lesson        Lesson[]
 
   @@unique([roomId, trimesterId])
 }
@@ -113,6 +114,25 @@ model PreLesson {
   date        DateTime
   createdAt   DateTime  @default(now()) @map("created_at")
   trimester   Trimester @relation(fields: [trimesterId], references: [id])
+  Lesson      Lesson[]
 
   @@map("pre-lessons")
+}
+
+model Lesson {
+  id              String @id @default(uuid())
+  trimesterRoomId String
+  preLessonId     String
+  title           String
+  visitors        Int
+  bibles          Int
+  magazines       Int
+  offers          Int
+  // studentsAttendanceIds: UniqueEntityId[];
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  preLesson     PreLesson     @relation(fields: [preLessonId], references: [id])
+  trimesterRoom TrimesterRoom @relation(fields: [trimesterRoomId], references: [id])
 }
