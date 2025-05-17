@@ -3,16 +3,31 @@ import { InMemoryPreLessonRepository } from 'test/repositories/in-memory-pre-les
 import { makeTrimester } from 'test/factories/make-trimester';
 import { InMemoryTrimestersRepository } from 'test/repositories/in-memory-trimester-repository';
 import { PreLessonWithSameNumberLessonAlreadyExistsOnTrimesterError } from './_erros/pre-lesson-with-same-number-lesson-already-exists-on-trimester-error';
+import { InMemoryTrimestersRoomsRepository } from 'test/repositories/in-memory-trimesters-rooms-repository';
+import { InMemoryRoomsRepository } from 'test/repositories/in-memory-rooms-repository';
+import { InMemoryLessonsRepository } from 'test/repositories/in-memory-lessons-repository';
 
+let inMemoryLessonsRepository: InMemoryLessonsRepository;
+let inMemoryRoomsRepository: InMemoryRoomsRepository;
 let inMemoryTrimestersRepository: InMemoryTrimestersRepository;
+let inMemoryTrimestersRoomsRepository: InMemoryTrimestersRoomsRepository;
 let inMemoryPreLessonsRepository: InMemoryPreLessonRepository;
 let sut: CreatePreLessonUseCase;
 
 describe('Create Pre Lesson', () => {
   beforeEach(() => {
     inMemoryTrimestersRepository = new InMemoryTrimestersRepository();
+    inMemoryRoomsRepository = new InMemoryRoomsRepository();
+    inMemoryLessonsRepository = new InMemoryLessonsRepository();
 
-    inMemoryPreLessonsRepository = new InMemoryPreLessonRepository();
+    inMemoryTrimestersRoomsRepository = new InMemoryTrimestersRoomsRepository(
+      inMemoryRoomsRepository,
+    );
+
+    inMemoryPreLessonsRepository = new InMemoryPreLessonRepository(
+      inMemoryTrimestersRoomsRepository,
+      inMemoryLessonsRepository,
+    );
     sut = new CreatePreLessonUseCase(inMemoryPreLessonsRepository);
   });
 

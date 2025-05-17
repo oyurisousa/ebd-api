@@ -50,13 +50,17 @@ export class InMemoryPreLessonRepository implements PreLessonRepository {
 
   async findMany(
     { page, perPage = PER_PAGE_DEFAULT }: PaginationParams,
-    filters: { trimesterId: string; numberLesson?: number; date?: Date },
+    filters: {
+      trimesterId: string;
+      numberLesson?: number;
+      date?: Date;
+      inProgress?: boolean;
+    },
   ): Promise<{
     preLessons: Array<PreLesson & { pendingClasses: number }>;
     meta: Meta;
   }> {
-    const { trimesterId, date, numberLesson } = filters;
-
+    const { trimesterId, date, numberLesson, inProgress } = filters;
     const preLessonsFiltered = this.items.filter((preLesson) => {
       if (!preLesson.trimesterId.equal(new UniqueEntityId(trimesterId))) {
         return false;
@@ -74,6 +78,22 @@ export class InMemoryPreLessonRepository implements PreLessonRepository {
           preLesson.date.getFullYear() === date.getFullYear()
         )
       ) {
+        return false;
+      }
+
+      const trimesterRooms = this.trimestersRoomsRepository.items.filter(
+        (trimesterRoom) => {
+          return trimesterRoom.trimesterId.equal(
+            new UniqueEntityId(trimesterId),
+          );
+        },
+      );
+
+      const lessons = this.lessonsRepository.items.filter((lesson) => {
+        lesson.preLessonId.equal(preLesson.id);
+      });
+
+      if (inProgress && !(trimesterRooms.length - lessons.length > 0)) {
         return false;
       }
 

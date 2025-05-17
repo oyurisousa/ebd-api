@@ -29,13 +29,13 @@ import { FetchTrimestersUseCase } from '@/domain/ebd/application/use-cases/trime
 import { FetchTrimesterRoomsController } from './controllers/trimester-room/fetch-trimesters-rooms.controller';
 import { FetchTrimesterRoomsUseCase } from '@/domain/ebd/application/use-cases/trimester-room/fetch-trimester-room';
 import { CreatePreLessonController } from './controllers/lesson/create-pre-lesson.controller';
-import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesson/create-pre-lesson';
+import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/pre-lesson/create-pre-lesson';
 import { FetchRegistrationsController } from './controllers/registration/fetch-registrations.controller';
 import { FetchRegistrationsUseCase } from '@/domain/ebd/application/use-cases/registration/fetch-registrations';
 import { FetchUsersController } from './controllers/user/fetch-users.controller';
 import { FetchUsersUseCase } from '@/domain/ebd/application/use-cases/user/fetch-users';
 import { FetchPreLessonsController } from './controllers/lesson/fetch-pre-lessons.controller';
-import { FetchPreLessonsUseCase } from '@/domain/ebd/application/use-cases/lesson/fetch-pre-lessons';
+import { FetchPreLessonsUseCase } from '@/domain/ebd/application/use-cases/pre-lesson/fetch-pre-lessons';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule],

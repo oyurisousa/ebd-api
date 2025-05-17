@@ -12,9 +12,9 @@ import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
 import { RolesGuard } from '@/infra/auth/roles.guard';
 import { UserRole as Role } from '@/domain/ebd/enterprise/user';
 import { Roles } from '@/infra/auth/role-decorator';
-import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/lesson/create-pre-lesson';
+import { CreatePreLessonUseCase } from '@/domain/ebd/application/use-cases/pre-lesson/create-pre-lesson';
 import { CreatePreLessonDto } from './dtos/create-pre-lesson.dto';
-import { PreLessonWithSameNumberLessonAlreadyExistsOnTrimesterError } from '@/domain/ebd/application/use-cases/lesson/_erros/pre-lesson-with-same-number-lesson-already-exists-on-trimester-error';
+import { PreLessonWithSameNumberLessonAlreadyExistsOnTrimesterError } from '@/domain/ebd/application/use-cases/pre-lesson/_erros/pre-lesson-with-same-number-lesson-already-exists-on-trimester-error';
 
 @ApiTags('lesson')
 @ApiBearerAuth()

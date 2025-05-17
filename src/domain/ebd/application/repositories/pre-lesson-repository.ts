@@ -15,6 +15,7 @@ export abstract class PreLessonRepository {
       trimesterId: string;
       numberLesson?: number;
       date?: Date;
+      inProgress?: boolean;
     },
   ): Promise<{
     preLessons: Array<PreLesson & { pendingClasses: number }>;

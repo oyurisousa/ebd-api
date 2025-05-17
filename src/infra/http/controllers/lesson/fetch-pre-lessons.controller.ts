@@ -8,7 +8,7 @@ import {
 import { JwtAuthGuard } from '@/infra/auth/jwt-auth.guard';
 
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { FetchPreLessonsUseCase } from '@/domain/ebd/application/use-cases/lesson/fetch-pre-lessons';
+import { FetchPreLessonsUseCase } from '@/domain/ebd/application/use-cases/pre-lesson/fetch-pre-lessons';
 import { FetchPreLessonsDto } from './dtos/fetch-pre-lessons.dto';
 import { PreLessonPresenter } from '../../presenters/pre-lesson-presenter';
 
@@ -21,7 +21,8 @@ export class FetchPreLessonsController {
   @Get()
   @UseGuards(JwtAuthGuard)
   async handle(@Query() queryParams: FetchPreLessonsDto) {
-    const { page, perPage, trimesterId, date, numberLesson } = queryParams;
+    const { page, perPage, trimesterId, date, numberLesson, inProgress } =
+      queryParams;
 
     const result = await this.fetchPreLessons.execute({
       page,
@@ -29,6 +30,7 @@ export class FetchPreLessonsController {
       trimesterId,
       date,
       numberLesson,
+      inProgress,
     });
 
     if (result.isLeft()) {

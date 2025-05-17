@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsDateString,
   IsNumber,
   IsOptional,
@@ -51,6 +52,15 @@ export class FetchPreLessonsDto {
   @IsOptional()
   @IsDateString()
   date?: Date;
+
+  @ApiProperty({
+    example: true,
+    description: 'apenas lições em andamento',
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  inProgress?: boolean;
 
   @ApiProperty({
     description: 'id do trimester',

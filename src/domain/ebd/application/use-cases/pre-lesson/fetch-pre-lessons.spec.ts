@@ -6,6 +6,8 @@ import { makeTrimester } from 'test/factories/make-trimester';
 import { InMemoryTrimestersRoomsRepository } from 'test/repositories/in-memory-trimesters-rooms-repository';
 import { InMemoryLessonsRepository } from 'test/repositories/in-memory-lessons-repository';
 import { InMemoryRoomsRepository } from 'test/repositories/in-memory-rooms-repository';
+import { makeTrimesterRoom } from 'test/factories/make-trimester-room';
+import { makeRoom } from 'test/factories/make-room';
 let inMemoryRoomsRepository: InMemoryRoomsRepository;
 let inMemoryTrimestersRoomsRepository: InMemoryTrimestersRoomsRepository;
 let inMemoryLessonsRepository: InMemoryLessonsRepository;
@@ -28,9 +30,18 @@ describe('Fetch Pre-Lessons', () => {
     sut = new FetchPreLessonsUseCase(inMemoryPreLessonsRepository);
   });
 
-  it('should be able to fetch prelessons', async () => {
+  it('should be able to fetch pré-lessons', async () => {
     const trimester = makeTrimester({ year: 2025, quarter: 1 });
     await inMemoryTrimestersRepository.create(trimester);
+
+    const room = makeRoom();
+    await inMemoryRoomsRepository.create(room);
+
+    const trimesterRoom = makeTrimesterRoom({
+      roomId: room.id,
+      trimesterId: trimester.id,
+    });
+    await inMemoryTrimestersRoomsRepository.createMany([trimesterRoom]);
 
     await inMemoryPreLessonsRepository.create(
       makePreLesson({
@@ -58,8 +69,25 @@ describe('Fetch Pre-Lessons', () => {
       page: 1,
       trimesterId: trimester.id.toString(),
     });
+
+    const result2 = await sut.execute({
+      page: 1,
+      trimesterId: trimester.id.toString(),
+      inProgress: true,
+    });
+
+    const result3 = await sut.execute({
+      page: 1,
+      trimesterId: trimester.id.toString(),
+      inProgress: false,
+    });
+
     expect(result.isRight()).toBeTruthy();
+    expect(result2.isRight()).toBeTruthy();
+    expect(result3.isRight()).toBeTruthy();
     expect(result.value?.preLessons).toHaveLength(3);
+    expect(result2.value?.preLessons).toHaveLength(3);
+    expect(result3.value?.preLessons).toHaveLength(3);
   });
 
   it('should be able to fetch paginated prelessons', async () => {

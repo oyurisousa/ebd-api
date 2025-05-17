@@ -50,12 +50,17 @@ export class PrismaPreLessonRepository implements PreLessonRepository {
 
   async findMany(
     { page, perPage = PER_PAGE_DEFAULT }: PaginationParams,
-    filters: { trimesterId: string; numberLesson?: number; date?: Date },
+    filters: {
+      trimesterId: string;
+      numberLesson?: number;
+      date?: Date;
+      inProgress?: boolean;
+    },
   ): Promise<{
     preLessons: Array<PreLesson & { pendingClasses: number }>;
     meta: Meta;
   }> {
-    const { trimesterId, date, numberLesson } = filters;
+    const { trimesterId, date, numberLesson, inProgress } = filters;
 
     const whereClause: Prisma.PreLessonWhereInput = {
       trimesterId: {

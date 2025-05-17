@@ -9,6 +9,7 @@ interface FetchPreLessonsUseCaseRequest {
   perPage?: number;
   trimesterId: string;
   numberLesson?: number;
+  inProgress?: boolean;
   date?: Date;
 }
 
@@ -30,10 +31,11 @@ export class FetchPreLessonsUseCase {
     trimesterId,
     date,
     numberLesson,
+    inProgress,
   }: FetchPreLessonsUseCaseRequest): Promise<FetchPreLessonsUseCaseResponse> {
     const { preLessons, meta } = await this.prelessonsRepository.findMany(
       { page, perPage },
-      { trimesterId, date, numberLesson },
+      { trimesterId, date, numberLesson, inProgress },
     );
 
     return right({
