@@ -102,7 +102,8 @@ model Registration {
   timesterRoom TrimesterRoom @relation(fields: [trimesterRoomId], references: [id])
   student      Member        @relation(fields: [studentId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt  DateTime     @default(now()) @map("created_at")
+  Attendance Attendance[]
 
   @@map("registrations")
 }
@@ -128,11 +129,25 @@ model Lesson {
   bibles          Int
   magazines       Int
   offers          Int
-  // studentsAttendanceIds: UniqueEntityId[];
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
   preLesson     PreLesson     @relation(fields: [preLessonId], references: [id])
   trimesterRoom TrimesterRoom @relation(fields: [trimesterRoomId], references: [id])
+  Attendance    Attendance[]
+}
+
+model Attendance {
+  id             String   @id @default(uuid())
+  lessonId       String   @map("lesson_id")
+  registrationId String   @map("registration_id")
+  present        Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  lesson       Lesson       @relation(fields: [lessonId], references: [id])
+  registration Registration @relation(fields: [registrationId], references: [id])
+
+  @@unique([lessonId, registrationId])
+  @@map("attendances")
 }

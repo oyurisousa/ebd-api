@@ -32,6 +32,24 @@ export class Lesson extends AggregateRoot<LessonProps> {
     return this.props.studentsAttendanceIds;
   }
 
+  set studentsAttendanceIds(studentsAttendanceIds: UniqueEntityId[]) {
+    this.props.studentsAttendanceIds = studentsAttendanceIds;
+  }
+
+  get visitors() {
+    return this.props.visitors;
+  }
+
+  get bibles() {
+    return this.props.bibles;
+  }
+  get magazines() {
+    return this.props.magazines;
+  }
+  get offers() {
+    return this.props.offers;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
