@@ -44,6 +44,6 @@ export class CreateTrimesterController {
       throw new BadRequestException();
     }
 
-    return;
+    return result.value;
   }
 }
